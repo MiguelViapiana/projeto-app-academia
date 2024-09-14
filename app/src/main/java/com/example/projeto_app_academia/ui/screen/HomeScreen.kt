@@ -31,15 +31,17 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 
 @Composable
-fun HomeScreen(drawerState: DrawerState) {
+fun HomeScreen(drawerState: DrawerState, navController: NavController) {
     Scaffold(
-        topBar = { TopBarMinima(drawerState) },
+        topBar = { AcademiaTopBar(drawerState, navController) },
         content = {padding -> ConteudoPrincipal(padding) }
     )
 }
@@ -58,48 +60,3 @@ private fun ConteudoPrincipal(padding : PaddingValues) {
     }
 }
 
-@Composable
-@OptIn(ExperimentalMaterial3Api::class)
-private fun TopBarMinima(drawerState: DrawerState) {
-
-    val escopo = rememberCoroutineScope()
-
-    TopAppBar(
-        navigationIcon = {
-            IconButton(onClick = {
-                escopo.launch {
-                    drawerState.open()
-                }
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu",
-                    tint = Color.White,
-                    modifier = Modifier.size(30.dp)
-                )
-            }
-        },
-
-        title = {
-            Text(
-                text = "AcademiaApp",
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                fontSize = 35.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
-        actions = {
-            IconButton(onClick = {}) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Login",
-                    tint = Color.White,
-                    modifier = Modifier.size(30.dp)
-                )
-            }
-        },
-        colors = TopAppBarDefaults.topAppBarColors(Color(0xFF275367))
-    )
-}

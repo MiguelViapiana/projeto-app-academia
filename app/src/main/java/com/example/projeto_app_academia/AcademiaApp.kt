@@ -1,32 +1,37 @@
 package com.example.projeto_app_academia
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,12 +44,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.projeto_app_academia.ui.screen.HomeScreen
 import com.example.projeto_app_academia.ui.screen.LoginScreen
 import com.example.projeto_app_academia.ui.screen.SignUpScreen
+import com.example.projeto_app_academia.ui.screen.treino.TreinoScreen
 import kotlinx.coroutines.launch
 
 object AcademiaRotas {
     val TELA_HOME = "tela_home"
     val TELA_lOGIN = "tela_login"
     val TELA_SIGNUP = "tela_signup"
+    val TELA_TREINO = "tela_treino"
 }
 
 @Preview(
@@ -75,6 +82,9 @@ fun AcademiaApp(){
                 composable(AcademiaRotas.TELA_SIGNUP) {
                     SignUpScreen(drawerState, navController)
                 }
+                composable(AcademiaRotas.TELA_TREINO) {
+                    TreinoScreen(drawerState, navController)
+                }
             }
         }
     )
@@ -86,27 +96,45 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
     val coroutineScope = rememberCoroutineScope()
 
 
+
     val currentBack by navController.currentBackStackEntryAsState()
     val rotaAtual = currentBack?.destination?.route ?: AcademiaRotas.TELA_HOME
 
     val ehRotaHome = rotaAtual == AcademiaRotas.TELA_HOME
     val ehRotaLogin = rotaAtual == AcademiaRotas.TELA_lOGIN
     val ehRotaSignUp = rotaAtual == AcademiaRotas.TELA_SIGNUP
+    val ehRotaTreino = rotaAtual == AcademiaRotas.TELA_TREINO
 
 
     Column(
+
         modifier = Modifier
             .width(300.dp)
             .background(Color.White)
-            .padding(30.dp)
             .fillMaxHeight()
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(70.dp)
+                .background(Color(0xFF275367)),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "AcademiaApp",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp
+            )
+        }
         Spacer(modifier = Modifier.height(70.dp))
 
 
         TextButton(
             colors = ButtonDefaults.buttonColors(
                 containerColor = getColorMenu(ehRotaHome)),
+            modifier = Modifier.padding(20.dp, 5.dp),
             onClick = {
                 navController.navigate(AcademiaRotas.TELA_HOME)
                 coroutineScope.launch {
@@ -114,7 +142,7 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
                 }
             }) {
             Icon(
-                imageVector = Icons.Default.AccountBox,
+                imageVector = Icons.Default.Home,
                 contentDescription = "Tela Home",
                 modifier = Modifier.size(40.dp),
                 tint = getColorTexto(ehRotaHome)
@@ -128,6 +156,7 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
         TextButton(
             colors = ButtonDefaults.buttonColors(
                 containerColor = getColorMenu(ehRotaLogin)),
+            modifier = Modifier.padding(20.dp, 5.dp),
             onClick = {
                 navController.navigate(AcademiaRotas.TELA_lOGIN)
                 coroutineScope.launch {
@@ -149,6 +178,7 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
         TextButton(
             colors = ButtonDefaults.buttonColors(
                 containerColor = getColorMenu(ehRotaSignUp)),
+            modifier = Modifier.padding(20.dp, 5.dp),
             onClick = {
             navController.navigate(AcademiaRotas.TELA_SIGNUP)
             coroutineScope.launch {
@@ -156,7 +186,7 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
             }
         }) {
             Icon(
-                imageVector = Icons.Default.AccountBox,
+                imageVector = Icons.Default.AccountCircle,
                 contentDescription = "Tela SignUp",
                 modifier = Modifier.size(40.dp),
                 tint = getColorTexto(ehRotaSignUp)
@@ -164,6 +194,28 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
             Text(
                 text = "SignUp", fontSize = 30.sp,
                 color = getColorTexto(ehRotaSignUp)
+
+            )
+        }
+        TextButton(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = getColorMenu(ehRotaTreino)),
+            modifier = Modifier.padding(20.dp, 5.dp),
+            onClick = {
+                navController.navigate(AcademiaRotas.TELA_TREINO)
+                coroutineScope.launch {
+                    drawerState.close()
+                }
+            }) {
+            Icon(
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "Tela Treino",
+                modifier = Modifier.size(40.dp),
+                tint = getColorTexto(ehRotaTreino)
+            )
+            Text(
+                text = "Treino", fontSize = 30.sp,
+                color = getColorTexto(ehRotaTreino)
 
             )
         }

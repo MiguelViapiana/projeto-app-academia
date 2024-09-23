@@ -48,7 +48,7 @@ import kotlinx.coroutines.launch
 
         title = {
             Text(
-                text = "AcademiaApp",
+                text = "WorkoutWise",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 35.sp,

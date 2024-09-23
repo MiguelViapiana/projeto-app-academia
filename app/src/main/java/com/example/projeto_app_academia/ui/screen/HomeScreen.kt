@@ -54,7 +54,7 @@ private fun ConteudoPrincipal(padding : PaddingValues) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Conteúdo", Modifier.padding(padding),
+            text = "Home", Modifier.padding(padding),
             fontSize = 50.sp
         )
     }

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -41,6 +41,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.projeto_app_academia.ui.screen.HistoricoScreen
 import com.example.projeto_app_academia.ui.screen.HomeScreen
 import com.example.projeto_app_academia.ui.screen.LoginScreen
 import com.example.projeto_app_academia.ui.screen.SignUpScreen
@@ -52,6 +53,7 @@ object AcademiaRotas {
     val TELA_lOGIN = "tela_login"
     val TELA_SIGNUP = "tela_signup"
     val TELA_TREINO = "tela_treino"
+    val TELA_HISTORICO = "tela_historico"
 }
 
 @Preview(
@@ -85,6 +87,9 @@ fun AcademiaApp(){
                 composable(AcademiaRotas.TELA_TREINO) {
                     TreinoScreen(drawerState, navController)
                 }
+                composable(AcademiaRotas.TELA_HISTORICO) {
+                    HistoricoScreen(drawerState, navController)
+                }
             }
         }
     )
@@ -104,6 +109,7 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
     val ehRotaLogin = rotaAtual == AcademiaRotas.TELA_lOGIN
     val ehRotaSignUp = rotaAtual == AcademiaRotas.TELA_SIGNUP
     val ehRotaTreino = rotaAtual == AcademiaRotas.TELA_TREINO
+    val ehRotaHistorico = rotaAtual == AcademiaRotas.TELA_HISTORICO
 
 
     Column(
@@ -219,8 +225,28 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
 
             )
         }
+        TextButton(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = getColorMenu(ehRotaHistorico)),
+            modifier = Modifier.padding(20.dp, 5.dp),
+            onClick = {
+                navController.navigate(AcademiaRotas.TELA_HISTORICO)
+                coroutineScope.launch {
+                    drawerState.close()
+                }
+            }) {
+            Icon(
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "Tela Treino",
+                modifier = Modifier.size(40.dp),
+                tint = getColorTexto(ehRotaHistorico)
+            )
+            Text(
+                text = "Historico", fontSize = 30.sp,
+                color = getColorTexto(ehRotaHistorico)
 
-
+            )
+        }
     }
 }
 

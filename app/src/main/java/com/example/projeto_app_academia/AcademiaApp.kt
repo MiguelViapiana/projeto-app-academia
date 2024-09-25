@@ -254,14 +254,14 @@ fun getColorTexto(estateSelecionada: Boolean): Color {
     if (estateSelecionada) {
         return Color.White
     } else {
-        return Color(0xFF39A1E7)
+        return Color(0xFF174F79)
     }
 }
 
 
 fun getColorMenu(estateSelecionada: Boolean): Color {
     if (estateSelecionada) {
-        return Color(0xFF39A1E7)
+        return Color(0xFF174F79)
     } else {
         return Color.Transparent
     }

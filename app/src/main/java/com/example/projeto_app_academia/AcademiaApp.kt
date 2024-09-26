@@ -11,14 +11,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Text
@@ -30,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
@@ -122,19 +126,23 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(70.dp)
-                .background(Color(0xFF275367)),
+                .height(70.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "AcademiaApp",
-                color = Color.White,
+                text = "WorkoutWise",
+                color = Color(0xFF275367),
                 fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
+                fontSize = 32.sp
             )
         }
-        Spacer(modifier = Modifier.height(70.dp))
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
+            thickness = 1.dp,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(40.dp))
 
 
         TextButton(

@@ -7,17 +7,35 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
+import com.example.projeto_app_academia.ui.screen.util.TreinoBottomBar
 
 
 @Composable
-fun ListarTreinoScreen(padding : PaddingValues){
+fun ListarTreinoScreen(drawerState: DrawerState, navCtrlBottomNav: NavController, currentScreen: MutableState<String>){
 
+    val navListarTreino = rememberNavController()
+
+    Scaffold(
+        topBar = { AcademiaTopBar(drawerState, navListarTreino) },
+        content = {paddingValues -> ConteudoPrincipalListar(paddingValues) },
+        bottomBar = {TreinoBottomBar(navCtrlBottomNav, currentScreen)}
+    )
+}
+
+@Composable
+private fun ConteudoPrincipalListar(padding: PaddingValues) {
     var treinos = mutableListOf(
         Treino(
             titulo = "Treino A"
@@ -46,56 +64,8 @@ fun ListarTreinoScreen(padding : PaddingValues){
     }
 }
 
-
 data class Treino(
     var titulo: String,
     var concluido: Boolean = false,
     var id: Int? = null
 )
-//@Composable
-//fun TelaUmA(padding: PaddingValues) {
-//
-//    var afazeres = mutableListOf(
-//        Afazer(
-//            titulo = "Comprar carro",
-//            descricao = "Visitar concessionaria",
-//            id = 1
-//        ),
-//        Afazer(
-//            titulo = "Lavar roupa",
-//            descricao = "Lavar roupa pela manhã",
-//            id = 2
-//        )
-//
-//    )
-//
-//    LazyColumn(
-//        modifier = Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        items(afazeres) { afazer ->
-//            Row {
-//                Column {
-//                    Text(
-//                        text = afazer.titulo,
-//                        textAlign = TextAlign.Center,
-//                        fontSize = 30.sp
-//                    )
-//                    Text(
-//                        text = afazer.descricao,
-//                        fontSize = 20.sp
-//                    )
-//                }
-//
-//            }
-//
-//
-//        }
-//
-////        Text(
-////            text = "Tela Um A", Modifier.padding(padding),
-////            fontSize = 50.sp
-////        )
-//    }
-//}

@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.projeto_app_academia.AcademiaRotas
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,8 @@ import kotlinx.coroutines.launch
  fun AcademiaTopBar(drawerState: DrawerState, navController: NavController) {
 
     val escopo = rememberCoroutineScope()
+
+    val navController = rememberNavController()
 
     TopAppBar(
         navigationIcon = {
@@ -52,18 +55,14 @@ import kotlinx.coroutines.launch
         },
 
         title = {
-            TextButton(onClick = {
-                navController.navigate(AcademiaRotas.TELA_HOME)
-            }) {
-                Text(
-                    text = "WorkoutWise",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 35.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            Text(
+                text = "WorkoutWise",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 35.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
 
         },
         actions = {

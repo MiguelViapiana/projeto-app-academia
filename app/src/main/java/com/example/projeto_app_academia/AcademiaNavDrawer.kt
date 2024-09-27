@@ -11,14 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.HorizontalDivider
@@ -28,12 +26,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
@@ -45,11 +41,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.projeto_app_academia.ui.screen.HistoricoScreen
-import com.example.projeto_app_academia.ui.screen.HomeScreen
-import com.example.projeto_app_academia.ui.screen.LoginScreen
-import com.example.projeto_app_academia.ui.screen.SignUpScreen
-import com.example.projeto_app_academia.ui.screen.treino.TreinoScreen
+import com.example.projeto_app_academia.ui.screen.historico.HistoricoScreen
+import com.example.projeto_app_academia.ui.screen.home.HomeScreen
+import com.example.projeto_app_academia.ui.screen.login.LoginScreen
+import com.example.projeto_app_academia.ui.screen.signup.SignUpScreen
+import com.example.projeto_app_academia.ui.screen.treino.TreinoNavHost
 import kotlinx.coroutines.launch
 
 object AcademiaRotas {
@@ -64,35 +60,35 @@ object AcademiaRotas {
     device = Devices.PIXEL
 )
 @Composable
-fun AcademiaApp(){
+fun AcademiaNavigation(){
 
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed)
 
-    val navController = rememberNavController()
+    val navCtrlDrawer = rememberNavController()
 
     ModalNavigationDrawer(
         drawerState = drawerState,
-        drawerContent = { DrawerContent(navController, drawerState) },
+        drawerContent = { DrawerContent(navCtrlDrawer, drawerState) },
         content = {
             NavHost(
-                navController = navController,
+                navController = navCtrlDrawer,
                 startDestination = AcademiaRotas.TELA_HOME
             ){
                 composable(AcademiaRotas.TELA_HOME) {
-                    HomeScreen(drawerState, navController)
+                     HomeScreen(drawerState, navCtrlDrawer)
                 }
                 composable(AcademiaRotas.TELA_lOGIN) {
-                    LoginScreen(drawerState, navController)
+                    LoginScreen(drawerState, navCtrlDrawer)
                 }
                 composable(AcademiaRotas.TELA_SIGNUP) {
-                    SignUpScreen(drawerState, navController)
+                    SignUpScreen(drawerState, navCtrlDrawer)
                 }
                 composable(AcademiaRotas.TELA_TREINO) {
-                    TreinoScreen(drawerState, navController)
+                    TreinoNavHost(drawerState)
                 }
                 composable(AcademiaRotas.TELA_HISTORICO) {
-                    HistoricoScreen(drawerState, navController)
+                    HistoricoScreen(drawerState, navCtrlDrawer)
                 }
             }
         }

@@ -32,11 +32,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
- fun AcademiaTopBar(drawerState: DrawerState, navController: NavController) {
+ fun AcademiaTopBar(drawerState: DrawerState, navCtrlDrawer: NavController) {
 
     val escopo = rememberCoroutineScope()
-
-    val navController = rememberNavController()
 
     TopAppBar(
         navigationIcon = {
@@ -67,7 +65,7 @@ import kotlinx.coroutines.launch
         },
         actions = {
             IconButton(onClick = {
-                navController.navigate(AcademiaRotas.TELA_lOGIN)
+                navCtrlDrawer.navigate(AcademiaRotas.TELA_lOGIN)
             }) {
                 Icon(
                     imageVector = Icons.Default.AccountCircle,

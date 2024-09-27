@@ -13,25 +13,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-
-object TelasTreinos{
-    val TELA_LISTAR_TREINO = "listar_treino"
-    val TELA_ADICIONAR_TREINO = "adicionar_treino"
-}
+import com.example.projeto_app_academia.TelasTreinos
 
 @Composable
-fun TreinoNavHost(drawerState: DrawerState) {
+fun TreinoNavHost(drawerState: DrawerState, navCtrlBottomNav: NavHostController) {
 
     val currentScreen = remember { mutableStateOf(TelasTreinos.TELA_ADICIONAR_TREINO) }
 
-    val navCtrlBottomNav = rememberNavController()
-
     NavHost(
         navController = navCtrlBottomNav,
-        startDestination = TelasTreinos.TELA_ADICIONAR_TREINO
+        startDestination = TelasTreinos.TELA_LISTAR_TREINO
     ) {
         composable(TelasTreinos.TELA_LISTAR_TREINO) {
             ListarTreinoScreen(drawerState, navCtrlBottomNav, currentScreen)

@@ -17,13 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 import com.example.projeto_app_academia.ui.screen.util.TreinoBottomBar
 
 
 @Composable
-fun ListarTreinoScreen(drawerState: DrawerState, navCtrlBottomNav: NavController, currentScreen: MutableState<String>){
+fun ListarTreinoScreen(drawerState: DrawerState, navCtrlBottomNav: NavHostController, currentScreen: MutableState<String>){
 
     val navListarTreino = rememberNavController()
 

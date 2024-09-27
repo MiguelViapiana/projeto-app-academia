@@ -56,6 +56,11 @@ object AcademiaRotas {
     val TELA_HISTORICO = "tela_historico"
 }
 
+object TelasTreinos{
+    val TELA_LISTAR_TREINO = "listar_treino"
+    val TELA_ADICIONAR_TREINO = "adicionar_treino"
+}
+
 @Preview(
     device = Devices.PIXEL
 )
@@ -66,6 +71,7 @@ fun AcademiaNavigation(){
         initialValue = DrawerValue.Closed)
 
     val navCtrlDrawer = rememberNavController()
+    val navCtrlBottomNav = rememberNavController()
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -76,7 +82,10 @@ fun AcademiaNavigation(){
                 startDestination = AcademiaRotas.TELA_HOME
             ){
                 composable(AcademiaRotas.TELA_HOME) {
-                     HomeScreen(drawerState, navCtrlDrawer)
+                     HomeScreen(drawerState = drawerState,
+                         navCtrlDrawer = navCtrlDrawer, moverParaTreinos = {
+                             navCtrlBottomNav.navigate(TelasTreinos.TELA_LISTAR_TREINO)
+                         })
                 }
                 composable(AcademiaRotas.TELA_lOGIN) {
                     LoginScreen(drawerState, navCtrlDrawer)
@@ -85,7 +94,7 @@ fun AcademiaNavigation(){
                     SignUpScreen(drawerState, navCtrlDrawer)
                 }
                 composable(AcademiaRotas.TELA_TREINO) {
-                    TreinoNavHost(drawerState)
+                    TreinoNavHost(drawerState, navCtrlBottomNav)
                 }
                 composable(AcademiaRotas.TELA_HISTORICO) {
                     HistoricoScreen(drawerState, navCtrlDrawer)
@@ -99,8 +108,6 @@ fun AcademiaNavigation(){
 private fun DrawerContent(navController: NavController, drawerState: DrawerState) {
 
     val coroutineScope = rememberCoroutineScope()
-
-
 
     val currentBack by navController.currentBackStackEntryAsState()
     val rotaAtual = currentBack?.destination?.route ?: AcademiaRotas.TELA_HOME

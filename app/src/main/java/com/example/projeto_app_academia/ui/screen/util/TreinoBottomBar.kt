@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.projeto_app_academia.ui.screen.treino.TelasTreinos
+import com.example.projeto_app_academia.TelasTreinos
 
 @Composable
 fun TreinoBottomBar(navController: NavController, currentScreen: MutableState<String>) {

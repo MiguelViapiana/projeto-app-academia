@@ -9,16 +9,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
@@ -31,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
@@ -41,23 +36,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.projeto_app_academia.AcademiaRotas
-import com.example.projeto_app_academia.ui.screen.treino.TelasTreinos
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 
 @Composable
-fun HomeScreen(drawerState: DrawerState, navController: NavController) {
+fun HomeScreen(drawerState: DrawerState, navCtrlDrawer: NavHostController, moverParaTreinos: () ->Unit) {
     Scaffold(
-        topBar = { AcademiaTopBar(drawerState, navController) },
-        content = {padding -> ConteudoPrincipal(padding, navController) }
+        topBar = { AcademiaTopBar(drawerState, navCtrlDrawer) },
+        content = {padding -> ConteudoPrincipal(padding,navCtrlDrawer, moverParaTreinos) }
     )
 }
 
 @Composable
-private fun ConteudoPrincipal(padding: PaddingValues, navController: NavController) {
+private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostController, moverParaTreinos: () ->Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -79,19 +74,19 @@ private fun ConteudoPrincipal(padding: PaddingValues, navController: NavControll
             workoutName = "Leg Day",
             date = "Sep 21, 2024",
             duration = "45 minutes",
-            navController
+            moverParaTreinos
         )
         WorkoutCard(
             workoutName = "Upper Body",
             date = "Sep 18, 2024",
             duration = "50 minutes",
-            navController
+            moverParaTreinos
         )
         WorkoutCard(
             workoutName = "Cardio",
             date = "Sep 17, 2024",
             duration = "30 minutes",
-            navController
+            moverParaTreinos
         )
         Row (
             modifier = Modifier
@@ -101,9 +96,10 @@ private fun ConteudoPrincipal(padding: PaddingValues, navController: NavControll
         ) {
             IconButton(
                 onClick = {
-                    navController.navigate(AcademiaRotas.TELA_TREINO) {
+                    navCtrlDrawer.navigate(AcademiaRotas.TELA_TREINO) {
                         popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
-                    }},
+                    }
+                          },
                 modifier = Modifier.size(60.dp)
             ) {
                 Icon(
@@ -120,7 +116,7 @@ private fun ConteudoPrincipal(padding: PaddingValues, navController: NavControll
 }
 
 @Composable
-fun WorkoutCard(workoutName: String, date: String, duration: String, navController: NavController) {
+fun WorkoutCard(workoutName: String, date: String, duration: String, moverParaTreinos: () ->Unit) {
 
 
     Card(
@@ -170,10 +166,10 @@ fun WorkoutCard(workoutName: String, date: String, duration: String, navControll
             Spacer(modifier = Modifier.weight(1f))
 
             IconButton(
-                onClick = {
-                    navController.navigate(AcademiaRotas.TELA_TREINO) {
-                        popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
-                    }
+                onClick = { moverParaTreinos()
+//                    navCtrlDrawer.navigate(AcademiaRotas.TELA_TREINO) {
+//                        popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
+//                    }
                 },
                 modifier = Modifier
                     .size(40.dp)

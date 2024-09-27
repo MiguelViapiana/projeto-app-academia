@@ -62,7 +62,7 @@ private fun ConteudoPrincipal(padding: PaddingValues, navController: NavControll
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFf5f5f5))
-            .padding(16.dp),
+            .padding(15.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround
     ) {
@@ -74,8 +74,6 @@ private fun ConteudoPrincipal(padding: PaddingValues, navController: NavControll
             color = Color(0xFF275367),
             textAlign = TextAlign.Center
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         WorkoutCard(
             workoutName = "Leg Day",

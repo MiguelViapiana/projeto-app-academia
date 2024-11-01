@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.example.projeto_app_academia.data.model.Exercicio
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.util.Date
 
 class Converters {
 

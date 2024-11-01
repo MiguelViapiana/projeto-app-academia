@@ -32,6 +32,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -65,7 +67,11 @@ object TelasTreinos{
 //@Preview(
 //    device = Devices.PIXEL
 //)
+
 @Composable
+@Preview(
+    device = Devices.PIXEL
+)
 fun AcademiaNavigation(
     viewModel: TreinoViewModel
 ){
@@ -85,7 +91,7 @@ fun AcademiaNavigation(
                 startDestination = AcademiaRotas.TELA_HOME
             ){
                 composable(AcademiaRotas.TELA_HOME) {
-                     HomeScreen(drawerState, navCtrlDrawer)
+                     HomeScreen(drawerState, navCtrlDrawer, viewModel)
                 }
                 composable(AcademiaRotas.TELA_lOGIN) {
                     LoginScreen(drawerState, navCtrlDrawer)

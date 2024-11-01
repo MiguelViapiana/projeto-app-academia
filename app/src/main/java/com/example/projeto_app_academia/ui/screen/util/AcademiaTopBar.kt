@@ -53,14 +53,22 @@ import kotlinx.coroutines.launch
         },
 
         title = {
-            Text(
-                text = "WorkoutWise",
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                fontSize = 35.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
+            TextButton(
+                onClick = {
+                    navCtrlDrawer.navigate(AcademiaRotas.TELA_HOME)
+                }
             )
+            {
+                Text(
+                    text = "WorkoutWise",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 35.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
 
         },
         actions = {

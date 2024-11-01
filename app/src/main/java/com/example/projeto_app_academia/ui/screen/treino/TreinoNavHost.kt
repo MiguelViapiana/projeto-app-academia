@@ -28,12 +28,12 @@ fun TreinoNavHost(drawerState: DrawerState, navCtrlBottomNav: NavHostController)
         navController = navCtrlBottomNav,
         startDestination = TelasTreinos.TELA_LISTAR_TREINO
     ) {
-        composable(TelasTreinos.TELA_LISTAR_TREINO) {
-            ListarTreinoScreen(drawerState, navCtrlBottomNav, currentScreen)
-        }
-        composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
-            AdicionarTreinoScreen(drawerState, navCtrlBottomNav, currentScreen)
-        }
+//        composable(TelasTreinos.TELA_LISTAR_TREINO) {
+//            ListarTreinoScreen(drawerState, navCtrlBottomNav, currentScreen)
+//        }
+//        composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
+//            AdicionarTreinoScreen(drawerState, navCtrlBottomNav, currentScreen)
+//        }
     }
 
 }

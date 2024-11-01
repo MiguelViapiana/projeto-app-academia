@@ -21,19 +21,20 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 import com.example.projeto_app_academia.ui.screen.util.TreinoBottomBar
 
 
 @Composable
-fun AdicionarTreinoScreen(drawerState: DrawerState, navCtrlBottomNav: NavController, currentScreen: MutableState<String>){
+fun AdicionarTreinoScreen(drawerState: DrawerState, navCtrlDrawer: NavController, viewModel: TreinoViewModel){
 
-    val navAdicionarTreino = rememberNavController()
+
 
     Scaffold(
-        topBar = { AcademiaTopBar(drawerState, navAdicionarTreino) },
+        topBar = { AcademiaTopBar(drawerState, navCtrlDrawer) },
         content = { paddingValues ->  ConteudoPrincipalAdicionar(paddingValues) },
-        bottomBar = {TreinoBottomBar(navController = navCtrlBottomNav, currentScreen)}
+      //  bottomBar = {TreinoBottomBar(navController = navCtrlBottomNav, currentScreen)}
     )
 }
 
@@ -48,27 +49,13 @@ private fun ConteudoPrincipalAdicionar(paddingValues: PaddingValues) {
 
     ) {
         Spacer(modifier = Modifier.height(50.dp))
-        Text(" Adicionar exercicio", style = MaterialTheme.typography.titleLarge)
+        Text(" Adicionar Treino", style = MaterialTheme.typography.titleLarge)
 
         //Nome
         OutlinedTextField(
             value = "",
             onValueChange = { },
             label = { Text("Nome") }
-        )
-
-        //Peso
-        OutlinedTextField(
-            value = "",
-            onValueChange = { },
-            label = { Text("Peso") }
-        )
-
-        //Repetição
-        OutlinedTextField(
-            value = "",
-            onValueChange = { },
-            label = { Text("Repetição") }
         )
     }
 }

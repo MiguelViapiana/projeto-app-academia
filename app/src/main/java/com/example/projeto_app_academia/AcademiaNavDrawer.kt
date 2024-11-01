@@ -41,10 +41,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.historico.HistoricoScreen
 import com.example.projeto_app_academia.ui.screen.home.HomeScreen
 import com.example.projeto_app_academia.ui.screen.login.LoginScreen
 import com.example.projeto_app_academia.ui.screen.signup.SignUpScreen
+import com.example.projeto_app_academia.ui.screen.treino.AdicionarTreinoScreen
+import com.example.projeto_app_academia.ui.screen.treino.ListarTreinoScreen
 import com.example.projeto_app_academia.ui.screen.treino.TreinoNavHost
 import kotlinx.coroutines.launch
 
@@ -52,8 +55,10 @@ object AcademiaRotas {
     val TELA_HOME = "tela_home"
     val TELA_lOGIN = "tela_login"
     val TELA_SIGNUP = "tela_signup"
-    val TELA_TREINO = "tela_treino"
-    val TELA_HISTORICO = "tela_historico"
+    //val TELA_TREINO = "tela_treino"
+    //val TELA_HISTORICO = "tela_historico"
+    val TELA_LISTAR_TREINO = "listar_treino"
+    val TELA_ADICIONAR_TREINO = "adicionar_treino"
 }
 
 object TelasTreinos{
@@ -61,11 +66,13 @@ object TelasTreinos{
     val TELA_ADICIONAR_TREINO = "adicionar_treino"
 }
 
-@Preview(
-    device = Devices.PIXEL
-)
+//@Preview(
+//    device = Devices.PIXEL
+//)
 @Composable
-fun AcademiaNavigation(){
+fun AcademiaNavigation(
+    viewModel: TreinoViewModel
+){
 
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed)
@@ -82,10 +89,7 @@ fun AcademiaNavigation(){
                 startDestination = AcademiaRotas.TELA_HOME
             ){
                 composable(AcademiaRotas.TELA_HOME) {
-                     HomeScreen(drawerState = drawerState,
-                         navCtrlDrawer = navCtrlDrawer, moverParaTreinos = {
-                             navCtrlBottomNav.navigate(TelasTreinos.TELA_LISTAR_TREINO)
-                         })
+                     HomeScreen(drawerState, navCtrlDrawer)
                 }
                 composable(AcademiaRotas.TELA_lOGIN) {
                     LoginScreen(drawerState, navCtrlDrawer)
@@ -93,11 +97,17 @@ fun AcademiaNavigation(){
                 composable(AcademiaRotas.TELA_SIGNUP) {
                     SignUpScreen(drawerState, navCtrlDrawer)
                 }
-                composable(AcademiaRotas.TELA_TREINO) {
-                    TreinoNavHost(drawerState, navCtrlBottomNav)
+//                composable(AcademiaRotas.TELA_TREINO) {
+//                    TreinoNavHost(drawerState, navCtrlBottomNav)
+//                }
+//                composable(AcademiaRotas.TELA_HISTORICO) {
+//                    HistoricoScreen(drawerState, navCtrlDrawer)
+//                }
+                composable(TelasTreinos.TELA_LISTAR_TREINO) {
+                    ListarTreinoScreen(drawerState, navCtrlDrawer, viewModel)
                 }
-                composable(AcademiaRotas.TELA_HISTORICO) {
-                    HistoricoScreen(drawerState, navCtrlDrawer)
+                composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
+                    AdicionarTreinoScreen(drawerState, navCtrlDrawer, viewModel)
                 }
             }
         }
@@ -115,21 +125,22 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
     val ehRotaHome = rotaAtual == AcademiaRotas.TELA_HOME
     val ehRotaLogin = rotaAtual == AcademiaRotas.TELA_lOGIN
     val ehRotaSignUp = rotaAtual == AcademiaRotas.TELA_SIGNUP
-    val ehRotaTreino = rotaAtual == AcademiaRotas.TELA_TREINO
-    val ehRotaHistorico = rotaAtual == AcademiaRotas.TELA_HISTORICO
+    val ehRotaAddTreino = rotaAtual == AcademiaRotas.TELA_ADICIONAR_TREINO
+    val ehRotaListarTreino = rotaAtual == AcademiaRotas.TELA_LISTAR_TREINO
 
 
     Column(
 
         modifier = Modifier
-            .width(300.dp)
+            .width(290.dp)
             .background(Color.White)
             .fillMaxHeight()
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(70.dp),
+                .height(70.dp)
+                .padding(0.dp, 20.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -145,7 +156,7 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
             thickness = 1.dp,
             color = Color.Black
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
 
         TextButton(
@@ -216,10 +227,10 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
         }
         TextButton(
             colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaTreino)),
+                containerColor = getColorMenu(ehRotaAddTreino)),
             modifier = Modifier.padding(20.dp, 5.dp),
             onClick = {
-                navController.navigate(AcademiaRotas.TELA_TREINO)
+                navController.navigate(AcademiaRotas.TELA_ADICIONAR_TREINO)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -228,20 +239,20 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
                 imageVector = Icons.Default.DateRange,
                 contentDescription = "Tela Treino",
                 modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaTreino)
+                tint = getColorTexto(ehRotaAddTreino)
             )
             Text(
-                text = "Treino", fontSize = 30.sp,
-                color = getColorTexto(ehRotaTreino)
+                text = "Adiconar Treino", fontSize = 25.sp,
+                color = getColorTexto(ehRotaAddTreino)
 
             )
         }
         TextButton(
             colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaHistorico)),
+                containerColor = getColorMenu(ehRotaListarTreino)),
             modifier = Modifier.padding(20.dp, 5.dp),
             onClick = {
-                navController.navigate(AcademiaRotas.TELA_HISTORICO)
+                navController.navigate(AcademiaRotas.TELA_LISTAR_TREINO)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -250,11 +261,11 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
                 imageVector = Icons.Default.DateRange,
                 contentDescription = "Tela Treino",
                 modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaHistorico)
+                tint = getColorTexto(ehRotaListarTreino)
             )
             Text(
-                text = "Historico", fontSize = 30.sp,
-                color = getColorTexto(ehRotaHistorico)
+                text = "Lista de Treinos", fontSize = 25.sp,
+                color = getColorTexto(ehRotaListarTreino)
 
             )
         }

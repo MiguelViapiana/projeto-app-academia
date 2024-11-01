@@ -44,15 +44,15 @@ import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 @OptIn(ExperimentalMaterial3Api::class)
 
 @Composable
-fun HomeScreen(drawerState: DrawerState, navCtrlDrawer: NavHostController, moverParaTreinos: () ->Unit) {
+fun HomeScreen(drawerState: DrawerState, navCtrlDrawer: NavHostController) {
     Scaffold(
         topBar = { AcademiaTopBar(drawerState, navCtrlDrawer) },
-        content = {padding -> ConteudoPrincipal(padding,navCtrlDrawer, moverParaTreinos) }
+        content = {padding -> ConteudoPrincipal(padding,navCtrlDrawer) }
     )
 }
 
 @Composable
-private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostController, moverParaTreinos: () ->Unit) {
+private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,20 +73,18 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
         WorkoutCard(
             workoutName = "Leg Day",
             date = "Sep 21, 2024",
-            duration = "45 minutes",
-            moverParaTreinos
+            duration = "45 minutes"
+
         )
         WorkoutCard(
             workoutName = "Upper Body",
             date = "Sep 18, 2024",
-            duration = "50 minutes",
-            moverParaTreinos
+            duration = "50 minutes"
         )
         WorkoutCard(
             workoutName = "Cardio",
             date = "Sep 17, 2024",
-            duration = "30 minutes",
-            moverParaTreinos
+            duration = "30 minutes"
         )
         Row (
             modifier = Modifier
@@ -96,7 +94,7 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
         ) {
             IconButton(
                 onClick = {
-                    navCtrlDrawer.navigate(AcademiaRotas.TELA_TREINO) {
+                    navCtrlDrawer.navigate(AcademiaRotas.TELA_ADICIONAR_TREINO) {
                         popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
                     }
                           },
@@ -116,7 +114,7 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
 }
 
 @Composable
-fun WorkoutCard(workoutName: String, date: String, duration: String, moverParaTreinos: () ->Unit) {
+fun WorkoutCard(workoutName: String, date: String, duration: String) {
 
 
     Card(
@@ -166,7 +164,7 @@ fun WorkoutCard(workoutName: String, date: String, duration: String, moverParaTr
             Spacer(modifier = Modifier.weight(1f))
 
             IconButton(
-                onClick = { moverParaTreinos()
+                onClick = {
 //                    navCtrlDrawer.navigate(AcademiaRotas.TELA_TREINO) {
 //                        popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
 //                    }

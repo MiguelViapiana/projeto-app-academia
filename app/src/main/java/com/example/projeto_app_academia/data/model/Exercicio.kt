@@ -1,4 +1,4 @@
-package com.example.projeto_app_academia.model
+package com.example.projeto_app_academia.data.model
 
 class Exercicio(
     var id: Int? = null,

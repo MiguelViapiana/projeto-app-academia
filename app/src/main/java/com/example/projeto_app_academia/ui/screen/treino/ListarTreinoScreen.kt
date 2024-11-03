@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
@@ -23,11 +24,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -41,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.projeto_app_academia.data.model.Treino
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 import com.example.projeto_app_academia.ui.screen.util.TreinoBottomBar
@@ -68,6 +74,7 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
 
     var coroutineScope = rememberCoroutineScope()
     val treinos by viewModel.treinos.collectAsState()
+    var showDialog by remember { mutableStateOf<Treino?>(null) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -117,8 +124,7 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
                         Spacer(modifier = Modifier.height(8.dp))
                         IconButton(
                             onClick = {
-                                // Chame a função de exclusão do ViewModel aqui
-                                //viewModel.excluirTreino(treino)
+                                showDialog = treino
                             },
                             modifier = Modifier.size(24.dp)
                         ) {
@@ -152,5 +158,36 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
                 }
             }
         }
+    }
+
+    showDialog?.let { treino ->
+        AlertDialog(
+            onDismissRequest = { showDialog = null },
+            title = {
+                Text(text = "Confirmar Exclusão")
+            },
+            text = {
+                Text(text = "Tem certeza de que deseja excluir o treino \"${treino.nome}\"?")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.excluir(treino)
+                        showDialog = null
+                    }
+                ) {
+                    Text("Excluir", color = Color.Red)
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDialog = null
+                    }
+                ) {
+                    Text("Cancelar")
+                }
+            }
+        )
     }
 }

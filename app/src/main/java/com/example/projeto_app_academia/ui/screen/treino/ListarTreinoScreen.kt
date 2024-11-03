@@ -64,13 +64,13 @@ fun ListarTreinoScreen(
 {
     Scaffold(
         topBar = { AcademiaTopBar(drawerState, navCtrlDrawer) },
-        content = {paddingValues -> ConteudoPrincipalListar(paddingValues, viewModel)},
+        content = {paddingValues -> ConteudoPrincipalListar(paddingValues, viewModel, navCtrlDrawer)},
        // bottomBar = {TreinoBottomBar(navCtrlBottomNav, currentScreen)}
     )
 }
 
 @Composable
-private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoViewModel) {
+private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoViewModel, navCtrlDrawer: NavHostController) {
 
     var coroutineScope = rememberCoroutineScope()
     val treinos by viewModel.treinos.collectAsState()
@@ -141,9 +141,7 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
 
                     IconButton(
                         onClick = {
-//                    navCtrlDrawer.navigate(AcademiaRotas.TELA_TREINO) {
-//                        popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
-//                    }
+                            navCtrlDrawer.navigate("exibir_treino/${treino.id}")
                         },
                         modifier = Modifier
                             .size(40.dp)

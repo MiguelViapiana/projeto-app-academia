@@ -46,6 +46,7 @@ import com.example.projeto_app_academia.ui.screen.home.HomeScreen
 import com.example.projeto_app_academia.ui.screen.login.LoginScreen
 import com.example.projeto_app_academia.ui.screen.signup.SignUpScreen
 import com.example.projeto_app_academia.ui.screen.treino.AdicionarTreinoScreen
+import com.example.projeto_app_academia.ui.screen.treino.ExibirTreino
 import com.example.projeto_app_academia.ui.screen.treino.ListarTreinoScreen
 import kotlinx.coroutines.launch
 
@@ -57,11 +58,13 @@ object AcademiaRotas {
     //val TELA_HISTORICO = "tela_historico"
     val TELA_LISTAR_TREINO = "listar_treino"
     val TELA_ADICIONAR_TREINO = "adicionar_treino"
+
 }
 
 object TelasTreinos{
     val TELA_LISTAR_TREINO = "listar_treino"
     val TELA_ADICIONAR_TREINO = "adicionar_treino"
+    val TELA_EXIBIR_TREINO = "exibir_treino"
 }
 
 //@Preview(
@@ -107,6 +110,10 @@ fun AcademiaNavigation(
                 }
                 composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
                     AdicionarTreinoScreen(drawerState, navCtrlDrawer, viewModel)
+                }
+                composable("exibir_treino/{treinoId}"){ navRequest ->
+                    val treinoId = navRequest.arguments?.getString("treinoId")
+                    ExibirTreino(drawerState,navCtrlDrawer, viewModel, treinoId?.toInt())
                 }
             }
         }

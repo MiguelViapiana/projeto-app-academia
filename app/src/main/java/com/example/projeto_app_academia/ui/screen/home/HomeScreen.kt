@@ -119,11 +119,6 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
                             fontSize = 16.sp,
                             color = Color.White
                         )
-//                        Text(
-//                            text = "Duração: $duration",
-//                            fontSize = 16.sp,
-//                            color = Color.White
-//                        )
                     }
 
                     // Espaço flexível entre o texto e o ícone
@@ -131,9 +126,7 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
 
                     IconButton(
                         onClick = {
-//                    navCtrlDrawer.navigate(AcademiaRotas.TELA_TREINO) {
-//                        popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
-//                    }
+                            navCtrlDrawer.navigate("exibir_treino/${treino.id}")
                         },
                         modifier = Modifier
                             .size(40.dp)
@@ -148,7 +141,6 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
                 }
             }
         }
-
 
         Row (
             modifier = Modifier

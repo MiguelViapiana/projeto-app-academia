@@ -1,4 +1,4 @@
-package com.example.projeto_app_academia.data.repository
+package com.example.projeto_app_academia.data.repository.treino
 
 import com.example.projeto_app_academia.data.dao.TreinoDao
 import com.example.projeto_app_academia.data.model.Treino

@@ -2,7 +2,7 @@ package com.example.projeto_app_academia.ui.mvvm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.projeto_app_academia.data.repository.TreinoRepository
+import com.example.projeto_app_academia.data.repository.treino.TreinoRepository
 import com.example.projeto_app_academia.data.model.Treino
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

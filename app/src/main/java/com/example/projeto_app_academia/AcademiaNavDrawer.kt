@@ -32,8 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -41,10 +39,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
+import com.example.projeto_app_academia.ui.mvvm.ExercicioViewModel
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.home.HomeScreen
 import com.example.projeto_app_academia.ui.screen.login.LoginScreen
 import com.example.projeto_app_academia.ui.screen.signup.SignUpScreen
+import com.example.projeto_app_academia.ui.screen.treino.AdicionarExercicioScreen
 import com.example.projeto_app_academia.ui.screen.treino.AdicionarTreinoScreen
 import com.example.projeto_app_academia.ui.screen.treino.ExibirTreino
 import com.example.projeto_app_academia.ui.screen.treino.ListarTreinoScreen
@@ -73,7 +74,9 @@ object TelasTreinos{
 
 @Composable
 fun AcademiaNavigation(
-    viewModel: TreinoViewModel
+    viewModelTreino: TreinoViewModel,
+    viewModelCategoria: CategoriaViewModel,
+    viewModelExercicio: ExercicioViewModel
 ){
 
     val drawerState = rememberDrawerState(
@@ -91,7 +94,7 @@ fun AcademiaNavigation(
                 startDestination = AcademiaRotas.TELA_HOME
             ){
                 composable(AcademiaRotas.TELA_HOME) {
-                     HomeScreen(drawerState, navCtrlDrawer, viewModel)
+                     HomeScreen(drawerState, navCtrlDrawer, viewModelTreino)
                 }
                 composable(AcademiaRotas.TELA_lOGIN) {
                     LoginScreen(drawerState, navCtrlDrawer)
@@ -106,14 +109,18 @@ fun AcademiaNavigation(
 //                    HistoricoScreen(drawerState, navCtrlDrawer)
 //                }
                 composable(TelasTreinos.TELA_LISTAR_TREINO) {
-                    ListarTreinoScreen(drawerState, navCtrlDrawer, viewModel)
+                    ListarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
                 }
                 composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
-                    AdicionarTreinoScreen(drawerState, navCtrlDrawer, viewModel)
+                    AdicionarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
                 }
                 composable("exibir_treino/{treinoId}"){ navRequest ->
                     val treinoId = navRequest.arguments?.getString("treinoId")
-                    ExibirTreino(drawerState,navCtrlDrawer, viewModel, treinoId?.toInt())
+                    ExibirTreino(drawerState,navCtrlDrawer, viewModelTreino, treinoId?.toInt())
+                }
+                composable("inserir_exercicio_categoria/{treinoId}") { navRequest ->
+                    val treinoId = navRequest.arguments?.getString("treinoId")
+                    AdicionarExercicioScreen(drawerState,navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt())
                 }
             }
         }

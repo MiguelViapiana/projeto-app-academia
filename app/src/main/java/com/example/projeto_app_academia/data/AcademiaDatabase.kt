@@ -7,14 +7,21 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.projeto_app_academia.data.dao.CategoriaDao
+import com.example.projeto_app_academia.data.dao.ExercicioDao
 import com.example.projeto_app_academia.data.dao.TreinoDao
 import com.example.projeto_app_academia.data.model.Treino
+import com.example.projeto_app_academia.data.model.Categoria
+import com.example.projeto_app_academia.data.model.Exercicio
+import java.util.concurrent.Executors
+import kotlin.reflect.KParameter
 
-
-@Database(entities = [Treino::class], version = 2)
+@Database(entities = [Treino::class, Categoria::class, Exercicio::class], version = 4)
 @TypeConverters(Converters::class)
 abstract class AcademiaDatabse : RoomDatabase(){
     abstract fun TrenioDao(): TreinoDao
+    abstract fun CategoriaDao(): CategoriaDao
+    abstract fun ExercicioDao(): ExercicioDao
 
     companion object{
         fun abrirBancoDeDados(context: Context): AcademiaDatabse{
@@ -22,16 +29,9 @@ abstract class AcademiaDatabse : RoomDatabase(){
                 context.applicationContext,
                 AcademiaDatabse::class.java, "workoutWise.db"
             )
-                .addMigrations(MIGRATION_1_2)
+                //.fallbackToDestructiveMigration()
                 .build()
         }
-    }
-}
-
-val MIGRATION_1_2 = object : Migration(1, 2) {
-    override fun migrate(db: SupportSQLiteDatabase) {
-        // Adicione a nova coluna com um valor padrão
-        db.execSQL("ALTER TABLE Treino ADD COLUMN dataDeCriacao INTEGER NOT NULL DEFAULT 0")
     }
 }
 

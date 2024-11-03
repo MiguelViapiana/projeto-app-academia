@@ -1,7 +1,14 @@
 package com.example.projeto_app_academia.data.model
 
-class Categoria(
-    var id: Int? = null,
-    var nome: String,
-    var exercicios: List<Exercicio> = mutableListOf()
-)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+class Categoria (
+
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
+    val nome: String
+){
+    constructor(): this(null, "")
+}

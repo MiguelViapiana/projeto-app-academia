@@ -44,6 +44,7 @@ import androidx.navigation.NavHostController
 import com.example.projeto_app_academia.AcademiaRotas
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
+import com.example.projeto_app_academia.ui.screen.util.formatarDataCriacao
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,12 +113,12 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
                                 )
                             )
                         )
-//                        Spacer(modifier = Modifier.height(8.dp))
-//                        Text(
-//                            text = dataFormatada,
-//                            fontSize = 16.sp,
-//                            color = Color.White
-//                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = formatarDataCriacao(treino.dataDeCriacao),
+                            fontSize = 16.sp,
+                            color = Color.White
+                        )
 //                        Text(
 //                            text = "Duração: $duration",
 //                            fontSize = 16.sp,

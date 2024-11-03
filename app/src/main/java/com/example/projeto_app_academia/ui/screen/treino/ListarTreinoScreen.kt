@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
@@ -43,7 +44,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 import com.example.projeto_app_academia.ui.screen.util.TreinoBottomBar
+import com.example.projeto_app_academia.ui.screen.util.formatarDataCriacao
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 
@@ -66,12 +69,12 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
     var coroutineScope = rememberCoroutineScope()
     val treinos by viewModel.treinos.collectAsState()
 
-
-
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .padding(padding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
+
     ) {
         items(treinos){ treino ->
 
@@ -80,7 +83,7 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
                 colors = CardDefaults.cardColors(containerColor = Color(0x63275367)),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(5.dp)
+                    .padding(10.dp)
             ) {
                 Row(
                     modifier = Modifier
@@ -89,7 +92,7 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
                     verticalAlignment = Alignment.CenterVertically // Alinha o conteúdo verticalmente ao centro
                 ) {
                     Column(
-                        modifier = Modifier.weight(2f),
+                        modifier = Modifier.weight(3f),
                         horizontalAlignment = Alignment.Start
                     ) {
                         Text(
@@ -105,17 +108,26 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
                                 )
                             )
                         )
-//                        Spacer(modifier = Modifier.height(8.dp))
-//                        Text(
-//                            text = dataFormatada,
-//                            fontSize = 16.sp,
-//                            color = Color.White
-//                        )
-//                        Text(
-//                            text = "Duração: $duration",
-//                            fontSize = 16.sp,
-//                            color = Color.White
-//                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Data de criação: " + formatarDataCriacao(treino.dataDeCriacao),
+                            fontSize = 16.sp,
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        IconButton(
+                            onClick = {
+                                // Chame a função de exclusão do ViewModel aqui
+                                //viewModel.excluirTreino(treino)
+                            },
+                            modifier = Modifier.size(24.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Excluir treino",
+                                tint = Color(0xFF275367)
+                            )
+                        }
                     }
 
                     // Espaço flexível entre o texto e o ícone
@@ -139,33 +151,6 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
                     }
                 }
             }
-//            Row(
-//                modifier = Modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.Center
-//            ) {
-//                Column(
-//                    horizontalAlignment = Alignment.CenterHorizontally
-//                ) {
-//                    Text(
-//                        text = treino.nome,
-//                        textAlign = TextAlign.Center,
-//                        fontSize = 30.sp
-//                    )
-//                }
-//            }
-
         }
-//        for(treino in treinos){
-//            Row {
-//                Column {
-//                    Text(
-//                        text = treino.nome
-//                        textAlign = TextAlign.Center,
-//                        fontSize = 30.sp
-//                    )
-//                }
-//            }
-//        }
     }
 }
-

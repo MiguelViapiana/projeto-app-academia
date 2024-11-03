@@ -69,9 +69,6 @@ object TelasTreinos{
 //)
 
 @Composable
-@Preview(
-    device = Devices.PIXEL
-)
 fun AcademiaNavigation(
     viewModel: TreinoViewModel
 ){

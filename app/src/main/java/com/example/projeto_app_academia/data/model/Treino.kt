@@ -10,7 +10,8 @@ data class Treino(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
     val nome: String,
-    var exercicios: MutableList<Exercicio> = mutableListOf()
+    var exercicios: MutableList<Exercicio> = mutableListOf(),
+    val dataDeCriacao: Long = System.currentTimeMillis()
 
 
     ){

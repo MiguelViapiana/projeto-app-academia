@@ -85,6 +85,6 @@ import kotlinx.coroutines.launch
         },
         colors = TopAppBarDefaults.topAppBarColors(Color(0xFF275367)),
         modifier = Modifier.padding()
-            .clip(RoundedCornerShape(bottomStart = 18.dp, bottomEnd = 18.dp))
+            .clip(RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp))
     )
 }

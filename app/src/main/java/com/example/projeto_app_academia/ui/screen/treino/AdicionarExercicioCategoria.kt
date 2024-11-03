@@ -5,21 +5,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,18 +35,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.projeto_app_academia.AcademiaRotas
-import com.example.projeto_app_academia.data.model.Categoria
 import com.example.projeto_app_academia.data.model.Treino
 import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
 import com.example.projeto_app_academia.ui.mvvm.ExercicioViewModel
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
-import kotlinx.coroutines.launch
 
 
 @Composable
-fun AdicionarExercicioScreen(
+fun AdicionarExercicioCategoriaScreen(
     drawerState: DrawerState,
     navCtrlDrawer: NavController,
     viewModelTreino: TreinoViewModel,
@@ -98,6 +90,7 @@ private fun ConteudoPrincipalAdicionar(
             fontWeight = FontWeight.Bold,
             fontSize = 25.sp,
             textAlign = TextAlign.Center,
+            modifier = Modifier.padding(10.dp)
         )
         LazyColumn {
 
@@ -109,8 +102,9 @@ private fun ConteudoPrincipalAdicionar(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(10.dp)
-                        .clickable{}
-
+                        .clickable{
+                            navCtrlDrawer.navigate("inserir_exercicio/${treinoId}/${categoria.id}")
+                        }
                 ) {
                     Row(
                         modifier = Modifier
@@ -138,13 +132,6 @@ private fun ConteudoPrincipalAdicionar(
                         }
                     }
                 }
-
-//                Text(
-//                    text = categoria.nome,
-//                    modifier = Modifier.clickable {
-//
-//                    }
-//                )
             }
         }
 //        Button(

@@ -79,7 +79,6 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
             color = Color(0xFF275367),
             textAlign = TextAlign.Center
         )
-
         for(treino in treinos.takeLast(3)){
         //items(treinos){ treino ->
 

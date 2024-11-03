@@ -45,6 +45,8 @@ import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.home.HomeScreen
 import com.example.projeto_app_academia.ui.screen.login.LoginScreen
 import com.example.projeto_app_academia.ui.screen.signup.SignUpScreen
+import com.example.projeto_app_academia.ui.screen.treino.AdicionarExercicioCategoriaScreen
+import com.example.projeto_app_academia.ui.screen.treino.AdicionarExercicioNovoScreen
 import com.example.projeto_app_academia.ui.screen.treino.AdicionarExercicioScreen
 import com.example.projeto_app_academia.ui.screen.treino.AdicionarTreinoScreen
 import com.example.projeto_app_academia.ui.screen.treino.ExibirTreino
@@ -102,12 +104,6 @@ fun AcademiaNavigation(
                 composable(AcademiaRotas.TELA_SIGNUP) {
                     SignUpScreen(drawerState, navCtrlDrawer)
                 }
-//                composable(AcademiaRotas.TELA_TREINO) {
-//                    TreinoNavHost(drawerState, navCtrlBottomNav)
-//                }
-//                composable(AcademiaRotas.TELA_HISTORICO) {
-//                    HistoricoScreen(drawerState, navCtrlDrawer)
-//                }
                 composable(TelasTreinos.TELA_LISTAR_TREINO) {
                     ListarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
                 }
@@ -120,7 +116,23 @@ fun AcademiaNavigation(
                 }
                 composable("inserir_exercicio_categoria/{treinoId}") { navRequest ->
                     val treinoId = navRequest.arguments?.getString("treinoId")
-                    AdicionarExercicioScreen(drawerState,navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt())
+                    AdicionarExercicioCategoriaScreen(drawerState,navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt())
+                }
+                composable("inserir_exercicio/{treinoId}/{categoriaId}") { navRequest ->
+                    val treinoId = navRequest.arguments?.getString("treinoId")
+                    val categoriaId = navRequest.arguments?.getString("categoriaId")
+                    AdicionarExercicioScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt())
+                }
+                composable("inserir_exercicio_editar/{treinoId}/{categoriaId}/{exercicioId}") { navRequest ->
+                    val treinoId = navRequest.arguments?.getString("treinoId")
+                    val categoriaId = navRequest.arguments?.getString("categoriaId")
+                    val exercicioId = navRequest.arguments?.getString("exercicioId")
+                    AdicionarExercicioScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt())
+                }
+                composable("inserir_exercicio_novo/{treinoId}/{categoriaId}") { navRequest ->
+                    val treinoId = navRequest.arguments?.getString("treinoId")
+                    val categoriaId = navRequest.arguments?.getString("categoriaId")
+                    AdicionarExercicioNovoScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt())
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.example.projeto_app_academia.data.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
+import androidx.room.Update
 import androidx.room.Upsert
 import com.example.projeto_app_academia.data.model.Exercicio
 import kotlinx.coroutines.flow.Flow
@@ -28,4 +29,7 @@ interface ExercicioDao {
 
     @Query("SELECT * FROM exercicio WHERE id IN (:ids)")
     suspend fun buscarExerciciosPorIds(ids: List<Int>): List<Exercicio>
+
+    @Update
+    suspend fun updateExercicio(exercicio: Exercicio)
 }

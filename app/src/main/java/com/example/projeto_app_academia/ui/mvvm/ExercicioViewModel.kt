@@ -48,4 +48,14 @@ class ExercicioViewModel(
         return repository.buscarExerciciosPorIds(ids)
     }
 
+    fun removerExercicioDoTreino(exercicioId: Int) {
+        viewModelScope.launch {
+            val exercicio = buscarExercicioPorId(exercicioId)
+            if (exercicio != null) {
+                val exercicioAtualizado = exercicio.copy(treinoId = null)
+                repository.atualizarExercicio(exercicioAtualizado)
+            }
+        }
+    }
+
 }

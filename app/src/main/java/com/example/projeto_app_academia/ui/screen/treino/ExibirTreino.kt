@@ -32,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
@@ -153,21 +154,42 @@ private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewMode
                             .fillMaxWidth()
                             .padding(vertical = 4.dp)
                     ) {
-                        Column(
-                            modifier = Modifier.padding(12.dp)
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(
-                                text = "Exercício: ${exercicio.nome}",
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(
-                                text = "Séries: ${exercicio.series} | Repetições: ${exercicio.repeticoes}",
-                                fontSize = 14.sp,
-                                color = Color.White
-                            )
+                            Column(
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text(
+                                    text = "Exercício: ${exercicio.nome}",
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Color.White
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = "Séries: ${exercicio.series} | Repetições: ${exercicio.repeticoes}",
+                                    fontSize = 14.sp,
+                                    color = Color.White
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            IconButton(
+                                onClick = {
+                                    exercicio.id?.let { viewlmodelExercicio.removerExercicioDoTreino(it) }
+                                },
+                                modifier = Modifier.size(24.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Excluir treino",
+                                    tint = Color(0xFFFFFFFF)
+                                )
+                            }
                         }
                     }
                 }

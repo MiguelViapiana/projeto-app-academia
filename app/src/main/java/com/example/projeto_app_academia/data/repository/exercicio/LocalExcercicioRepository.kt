@@ -26,4 +26,8 @@ class LocalExcercicioRepository(
     override suspend fun buscarExerciciosPorIds(ids: List<Int>): List<Exercicio> {
         return dao.buscarExerciciosPorIds(ids)
     }
+
+    override suspend fun atualizarExercicio(exercicio: Exercicio) {
+        return dao.updateExercicio(exercicio)
+    }
 }

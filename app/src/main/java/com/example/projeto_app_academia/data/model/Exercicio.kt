@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Exercicio(
+data class Exercicio(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,

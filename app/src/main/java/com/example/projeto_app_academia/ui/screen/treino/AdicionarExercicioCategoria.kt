@@ -5,17 +5,24 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -37,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.projeto_app_academia.TelasTreinos
 import com.example.projeto_app_academia.data.model.Categoria
 import com.example.projeto_app_academia.data.model.Treino
 import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
@@ -79,6 +87,23 @@ private fun ConteudoPrincipalAdicionar(
     var treino: Treino? by remember { mutableStateOf(null) }
 
 
+    Row(modifier = Modifier.padding(paddingValues)) {
+        IconButton(
+            onClick = {
+                navCtrlDrawer.navigate("exibir_treino/${treinoId}")
+            },
+            modifier = Modifier
+                .size(58.dp)
+                .padding(16.dp, 4.dp),
+        ) {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = "Voltar",
+                tint = Color(0xFF275367),
+                modifier = Modifier.size(40.dp)
+            )
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -88,6 +113,10 @@ private fun ConteudoPrincipalAdicionar(
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
+
+
+
+
         Text("Selecione uma Categoria",
             style = MaterialTheme.typography.titleLarge,
             color = Color(0xFF275367),
@@ -105,7 +134,7 @@ private fun ConteudoPrincipalAdicionar(
                     colors = CardDefaults.cardColors(containerColor = Color(0x63275367)),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)
+                        .padding(16.dp, 8.dp)
                         .clickable{
                             navCtrlDrawer.navigate("inserir_exercicio/${treinoId}/${categoria.id}")
                         }

@@ -8,13 +8,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -79,6 +85,23 @@ private fun ConteudoPrincipalAdicionar(
     var treino: Treino? by remember { mutableStateOf(null) }
 
 
+    Row(modifier = Modifier.padding(paddingValues)) {
+        IconButton(
+            onClick = {
+                navCtrlDrawer.navigate("inserir_exercicio_categoria/${treinoId}")
+            },
+            modifier = Modifier
+                .size(58.dp)
+                .padding(16.dp, 4.dp),
+        ) {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = "Voltar",
+                tint = Color(0xFF275367),
+                modifier = Modifier.size(40.dp)
+            )
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -98,15 +121,7 @@ private fun ConteudoPrincipalAdicionar(
             modifier = Modifier.padding(10.dp)
         )
 
-        Row {
-            Button(
-                onClick = {
-                    navCtrlDrawer.navigate("inserir_exercicio_novo/${treinoId}/${categoriaId}")
-                }
-            ) {
-               Text("Adicionar novo excercício")
-            }
-        }
+
         LazyColumn {
             val nomesUnicos = exercicios
                 .filter { it.categoriaId == categoriaId } // Filtra pela categoria
@@ -122,7 +137,7 @@ private fun ConteudoPrincipalAdicionar(
                         colors = CardDefaults.cardColors(containerColor = Color(0x63275367)),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp)
+                            .padding(16.dp, 8.dp)
                             .clickable {
                                 navCtrlDrawer.navigate("inserir_exercicio_existente/${treinoId}/${categoriaId}/${exercicio.nome}")
                             }
@@ -154,6 +169,18 @@ private fun ConteudoPrincipalAdicionar(
                         }
                     }
                 }
+            }
+        }
+        Row {
+            Button(
+                onClick = {
+                    navCtrlDrawer.navigate("inserir_exercicio_novo/${treinoId}/${categoriaId}")
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0x63275367)
+                )
+            ) {
+                Text("Adicionar novo excercício")
             }
         }
     }

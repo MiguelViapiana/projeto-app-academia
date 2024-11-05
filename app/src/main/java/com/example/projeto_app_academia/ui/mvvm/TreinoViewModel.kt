@@ -2,8 +2,10 @@ package com.example.projeto_app_academia.ui.mvvm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.projeto_app_academia.data.model.Exercicio
 import com.example.projeto_app_academia.data.repository.treino.TreinoRepository
 import com.example.projeto_app_academia.data.model.Treino
+import com.example.projeto_app_academia.data.repository.treino.LocalTreinoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -40,6 +42,19 @@ class TreinoViewModel(
         viewModelScope.launch {
             repository.listarTreinos().collectLatest { listaDeTreino ->
                 _treinos.value = listaDeTreino
+            }
+        }
+    }
+
+    fun adicionarExercicioAoTreino(treinoId: Int, exercicio: Exercicio) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val treino = repository.buscarTreinoPorId(treinoId)
+            treino.let {
+                val exercicioIds = it.PegarExercicioIds()
+                exercicio.id?.let { novoId ->
+                    exercicioIds.add(novoId)
+                    repository.atualizarExercicioIdsDoTreino(treinoId, exercicioIds)
+                }
             }
         }
     }

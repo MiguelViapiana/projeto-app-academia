@@ -16,7 +16,7 @@ import com.example.projeto_app_academia.data.model.Exercicio
 import java.util.concurrent.Executors
 import kotlin.reflect.KParameter
 
-@Database(entities = [Treino::class, Categoria::class, Exercicio::class], version = 4)
+@Database(entities = [Treino::class, Categoria::class, Exercicio::class], version = 8)
 @TypeConverters(Converters::class)
 abstract class AcademiaDatabse : RoomDatabase(){
     abstract fun TrenioDao(): TreinoDao
@@ -29,9 +29,15 @@ abstract class AcademiaDatabse : RoomDatabase(){
                 context.applicationContext,
                 AcademiaDatabse::class.java, "workoutWise.db"
             )
-                //.fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration()
                 .build()
         }
     }
 }
 
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        // Adiciona a nova coluna exercicioIds ao banco de dados Treino
+        db.execSQL("ALTER TABLE Treino ADD COLUMN exercicioIds TEXT DEFAULT '[]'")
+    }
+}

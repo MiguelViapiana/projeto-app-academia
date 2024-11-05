@@ -112,7 +112,7 @@ fun AcademiaNavigation(
                 }
                 composable("exibir_treino/{treinoId}"){ navRequest ->
                     val treinoId = navRequest.arguments?.getString("treinoId")
-                    ExibirTreino(drawerState,navCtrlDrawer, viewModelTreino, treinoId?.toInt())
+                    ExibirTreino(drawerState,navCtrlDrawer, viewModelTreino, viewlmodelExercicio = viewModelExercicio, treinoId?.toInt())
                 }
                 composable("inserir_exercicio_categoria/{treinoId}") { navRequest ->
                     val treinoId = navRequest.arguments?.getString("treinoId")

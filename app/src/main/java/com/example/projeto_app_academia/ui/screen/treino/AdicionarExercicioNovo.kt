@@ -130,11 +130,14 @@ private fun ConteudoPrincipalAdicionarNovo(
                             nome = nome,
                             series = series,
                             repeticoes = repeticoes,
-                            categoriaId = it
+                            categoriaId = it,
+                            treinoId = treinoId
                         )
                     }
-                    if (exercicioSalvar != null) {
+                    if (exercicioSalvar != null && treinoId != null) {
                         viewModelExercicio.gravar(exercicioSalvar)
+                        viewModel.adicionarExercicioAoTreino(treinoId,exercicioSalvar)
+
                     }
                     navCtrlDrawer.navigate("exibir_treino/${treinoId}")
                 }

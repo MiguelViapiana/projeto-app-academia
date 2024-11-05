@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
@@ -35,11 +37,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.projeto_app_academia.data.model.Categoria
 import com.example.projeto_app_academia.data.model.Treino
 import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
 import com.example.projeto_app_academia.ui.mvvm.ExercicioViewModel
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -134,56 +138,56 @@ private fun ConteudoPrincipalAdicionar(
                 }
             }
         }
-//        Button(
-//            onClick = {
-//                coroutineScope.launch {
-//                    val categoriaSalvar01 = Categoria(
-//                        id = null,
-//                        nome = "Abdomên"
-//                    )
-//                    viewModelCategoria.gravar(categoriaSalvar01)
-//                    val categoriaSalvar02 = Categoria(
-//                        id = null,
-//                        nome = "Costas"
-//                    )
-//                    viewModelCategoria.gravar(categoriaSalvar02)
-//                    val categoriaSalvar03 = Categoria(
-//                        id = null,
-//                        nome = "Bíceps"
-//                    )
-//                    viewModelCategoria.gravar(categoriaSalvar03)
-//                    val categoriaSalvar04 = Categoria(
-//                        id = null,
-//                        nome = "Peito"
-//                    )
-//                    viewModelCategoria.gravar(categoriaSalvar04)
-//                    val categoriaSalvar05 = Categoria(
-//                        id = null,
-//                        nome = "Perna"
-//                    )
-//                    viewModelCategoria.gravar(categoriaSalvar05)
-//                    val categoriaSalvar06 = Categoria(
-//                        id = null,
-//                        nome = "Ombro"
-//                    )
-//                    viewModelCategoria.gravar(categoriaSalvar06)
-//                    val categoriaSalvar07 = Categoria(
-//                        id = null,
-//                        nome = "Tríceps"
-//                    )
-//
-//                    viewModelCategoria.gravar(categoriaSalvar07)
-//
-//
-//                }
-//            },
-//            colors = ButtonDefaults.buttonColors(
-//                containerColor = Color(0xFF275367) // Azul específico
-//            )
-//        ) {
-//            Text(text = "Salvar", fontSize = 30.sp)
-//        }
+        Button(
+            onClick = {
+                coroutineScope.launch {
+                    val categoriaSalvar01 = Categoria(
+                        id = null,
+                        nome = "Abdomên"
+                    )
+                    viewModelCategoria.gravar(categoriaSalvar01)
+                    val categoriaSalvar02 = Categoria(
+                        id = null,
+                        nome = "Costas"
+                    )
+                    viewModelCategoria.gravar(categoriaSalvar02)
+                    val categoriaSalvar03 = Categoria(
+                        id = null,
+                        nome = "Bíceps"
+                    )
+                    viewModelCategoria.gravar(categoriaSalvar03)
+                    val categoriaSalvar04 = Categoria(
+                        id = null,
+                        nome = "Peito"
+                    )
+                    viewModelCategoria.gravar(categoriaSalvar04)
+                    val categoriaSalvar05 = Categoria(
+                        id = null,
+                        nome = "Perna"
+                    )
+                    viewModelCategoria.gravar(categoriaSalvar05)
+                    val categoriaSalvar06 = Categoria(
+                        id = null,
+                        nome = "Ombro"
+                    )
+                    viewModelCategoria.gravar(categoriaSalvar06)
+                    val categoriaSalvar07 = Categoria(
+                        id = null,
+                        nome = "Tríceps"
+                    )
 
+                    viewModelCategoria.gravar(categoriaSalvar07)
+
+
+                }
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF275367) // Azul específico
+            )
+        ) {
+            Text(text = "Salvar", fontSize = 30.sp)
+        }
+//
 //        //Nome
 //        OutlinedTextField(
 //            value = nome,

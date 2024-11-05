@@ -25,7 +25,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -44,8 +46,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.projeto_app_academia.AcademiaRotas
 import com.example.projeto_app_academia.TelasTreinos
+import com.example.projeto_app_academia.data.model.Exercicio
 import com.example.projeto_app_academia.data.model.Treino
 import com.example.projeto_app_academia.getColorMenu
+import com.example.projeto_app_academia.ui.mvvm.ExercicioViewModel
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 import com.example.projeto_app_academia.ui.screen.util.formatarDataCriacao
@@ -58,6 +62,7 @@ fun ExibirTreino(
     drawerState: DrawerState,
     navCtrlDrawer: NavHostController,
     viewModel: TreinoViewModel,
+    viewlmodelExercicio: ExercicioViewModel,
     treinoId: Int? = null
 ){
 
@@ -65,19 +70,21 @@ fun ExibirTreino(
         topBar = {AcademiaTopBar(drawerState, navCtrlDrawer)},
         content = {paddingValues ->
             if (treinoId != null) {
-                ConteudoPrincipalExibirTreino(paddingValues, viewModel, treinoId, navCtrlDrawer)
+                ConteudoPrincipalExibirTreino(paddingValues, viewModel,viewlmodelExercicio, treinoId, navCtrlDrawer)
             }
         }
     )
 }
 
 @Composable
-private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewModel: TreinoViewModel, treinoId: Int, navCtrlDrawer: NavHostController){
+private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewModel: TreinoViewModel,viewlmodelExercicio: ExercicioViewModel, treinoId: Int, navCtrlDrawer: NavHostController){
 
     var coroutineScope = rememberCoroutineScope()
     var nome by remember { mutableStateOf("") }
     var treino: Treino? by remember { mutableStateOf(null) }
     var dataDeCriacao by remember { mutableStateOf("") }
+    val exercicios = remember { mutableStateListOf<Exercicio>() }
+    val exerciciosDb by viewlmodelExercicio.exercicios.collectAsState()
 
     LaunchedEffect(treinoId) {
         coroutineScope.launch {
@@ -85,6 +92,12 @@ private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewMode
             treino?.let {
                 nome = it.nome
                 dataDeCriacao = formatarDataCriacao(it.dataDeCriacao)
+
+                for (exercicio in exerciciosDb) {
+                    if (exercicio.treinoId == treinoId) {
+                        exercicios.add(exercicio)
+                    }
+                }
             }
         }
     }
@@ -138,6 +151,32 @@ private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewMode
                     fontSize = 16.sp,
                     color = Color.White
                 )
+                exercicios.forEach { exercicio ->
+                    Card(
+                        shape = RoundedCornerShape(8.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFF275367)),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(12.dp)
+                        ) {
+                            Text(
+                                text = "Exercício: ${exercicio.nome}",
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.White
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "Séries: ${exercicio.series} | Repetições: ${exercicio.repeticoes}",
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                        }
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(12.dp))
                 Row (
@@ -164,3 +203,5 @@ private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewMode
         }
     }
 }
+
+

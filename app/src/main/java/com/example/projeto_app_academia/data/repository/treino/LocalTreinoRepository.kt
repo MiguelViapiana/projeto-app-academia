@@ -22,4 +22,12 @@ class LocalTreinoRepository(
     override suspend fun excluirTreino(treino: Treino) {
         return dao.excluirTreino(treino)
     }
+
+    override suspend fun atualizarExercicioIdsDoTreino(treinoId: Int, exercicioIds: MutableList<Int>) {
+        val treino = buscarTreinoPorId(treinoId)
+        val ids = treino.PegarExercicioIds().apply {
+            addAll(exercicioIds)
+        }
+        dao.atualizarExercicioIdsDoTreino(treinoId, treino.converterListaParaString(ids))
+    }
 }

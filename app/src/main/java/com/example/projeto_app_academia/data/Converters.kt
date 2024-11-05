@@ -18,4 +18,28 @@ class Converters {
         val listType = object : TypeToken<MutableList<Exercicio>>() {}.type
         return Gson().fromJson(value, listType)
     }
+
+    @TypeConverter
+    fun fromListToString(list: List<Int>): String {
+        return list.joinToString(separator = ",")
+    }
+
+    @TypeConverter
+    fun fromStringToList(value: String): List<Int> {
+        return if (value.isEmpty()) {
+            emptyList()
+        } else {
+            value.split(",").map { it.toInt() }
+        }
+    }
+
+    @TypeConverter
+    fun fromMutableListInt(value: MutableList<Int>): String {
+        return value.joinToString(separator = ",")
+    }
+
+    @TypeConverter
+    fun toMutableListInt(value: String): MutableList<Int> {
+        return if (value.isEmpty()) mutableListOf() else value.split(",").map { it.toInt() }.toMutableList()
+    }
 }

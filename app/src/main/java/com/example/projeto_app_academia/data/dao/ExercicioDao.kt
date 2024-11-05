@@ -25,4 +25,7 @@ interface ExercicioDao {
     //Deletar
     @Delete
     suspend fun excluirExercicio(exercicio: Exercicio)
+
+    @Query("SELECT * FROM exercicio WHERE id IN (:ids)")
+    suspend fun buscarExerciciosPorIds(ids: List<Int>): List<Exercicio>
 }

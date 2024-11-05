@@ -22,4 +22,8 @@ class LocalExcercicioRepository(
     override suspend fun excluirExercicio(exercicio: Exercicio) {
         return dao.excluirExercicio(exercicio)
     }
+
+    override suspend fun buscarExerciciosPorIds(ids: List<Int>): List<Exercicio> {
+        return dao.buscarExerciciosPorIds(ids)
+    }
 }

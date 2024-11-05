@@ -44,4 +44,8 @@ class ExercicioViewModel(
         }
     }
 
+    suspend fun buscarExerciciosPorIds(ids: List<Int>): List<Exercicio> {
+        return repository.buscarExerciciosPorIds(ids)
+    }
+
 }

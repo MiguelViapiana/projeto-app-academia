@@ -11,4 +11,6 @@ interface ExercicioRepository {
     suspend fun gravarExercicio(exercicio: Exercicio)
 
     suspend fun excluirExercicio(exercicio: Exercicio)
+
+    suspend fun buscarExerciciosPorIds(ids: List<Int>): List<Exercicio>
 }

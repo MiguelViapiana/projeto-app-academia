@@ -10,8 +10,9 @@ class Exercicio(
     val id: Int? = null,
     val nome: String,
     val categoriaId: Int,
+    var treinoId: Int?,
     val series: Int,
     val repeticoes: Int
 ){
-    constructor() : this(null, "", 0, 0, 0)
+    constructor() : this(null, "", 0, 0, 0, 0)
 }

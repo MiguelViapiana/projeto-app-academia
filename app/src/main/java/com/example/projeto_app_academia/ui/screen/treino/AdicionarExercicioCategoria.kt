@@ -138,55 +138,55 @@ private fun ConteudoPrincipalAdicionar(
                 }
             }
         }
-        Button(
-            onClick = {
-                coroutineScope.launch {
-                    val categoriaSalvar01 = Categoria(
-                        id = null,
-                        nome = "Abdomên"
-                    )
-                    viewModelCategoria.gravar(categoriaSalvar01)
-                    val categoriaSalvar02 = Categoria(
-                        id = null,
-                        nome = "Costas"
-                    )
-                    viewModelCategoria.gravar(categoriaSalvar02)
-                    val categoriaSalvar03 = Categoria(
-                        id = null,
-                        nome = "Bíceps"
-                    )
-                    viewModelCategoria.gravar(categoriaSalvar03)
-                    val categoriaSalvar04 = Categoria(
-                        id = null,
-                        nome = "Peito"
-                    )
-                    viewModelCategoria.gravar(categoriaSalvar04)
-                    val categoriaSalvar05 = Categoria(
-                        id = null,
-                        nome = "Perna"
-                    )
-                    viewModelCategoria.gravar(categoriaSalvar05)
-                    val categoriaSalvar06 = Categoria(
-                        id = null,
-                        nome = "Ombro"
-                    )
-                    viewModelCategoria.gravar(categoriaSalvar06)
-                    val categoriaSalvar07 = Categoria(
-                        id = null,
-                        nome = "Tríceps"
-                    )
-
-                    viewModelCategoria.gravar(categoriaSalvar07)
-
-
-                }
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF275367) // Azul específico
-            )
-        ) {
-            Text(text = "Salvar", fontSize = 30.sp)
-        }
+//        Button(
+//            onClick = {
+//                coroutineScope.launch {
+//                    val categoriaSalvar01 = Categoria(
+//                        id = null,
+//                        nome = "Abdomên"
+//                    )
+//                    viewModelCategoria.gravar(categoriaSalvar01)
+//                    val categoriaSalvar02 = Categoria(
+//                        id = null,
+//                        nome = "Costas"
+//                    )
+//                    viewModelCategoria.gravar(categoriaSalvar02)
+//                    val categoriaSalvar03 = Categoria(
+//                        id = null,
+//                        nome = "Bíceps"
+//                    )
+//                    viewModelCategoria.gravar(categoriaSalvar03)
+//                    val categoriaSalvar04 = Categoria(
+//                        id = null,
+//                        nome = "Peito"
+//                    )
+//                    viewModelCategoria.gravar(categoriaSalvar04)
+//                    val categoriaSalvar05 = Categoria(
+//                        id = null,
+//                        nome = "Perna"
+//                    )
+//                    viewModelCategoria.gravar(categoriaSalvar05)
+//                    val categoriaSalvar06 = Categoria(
+//                        id = null,
+//                        nome = "Ombro"
+//                    )
+//                    viewModelCategoria.gravar(categoriaSalvar06)
+//                    val categoriaSalvar07 = Categoria(
+//                        id = null,
+//                        nome = "Tríceps"
+//                    )
+//
+//                    viewModelCategoria.gravar(categoriaSalvar07)
+//
+//
+//                }
+//            },
+//            colors = ButtonDefaults.buttonColors(
+//                containerColor = Color(0xFF275367) // Azul específico
+//            )
+//        ) {
+//            Text(text = "Salvar", fontSize = 30.sp)
+//        }
 //
 //        //Nome
 //        OutlinedTextField(

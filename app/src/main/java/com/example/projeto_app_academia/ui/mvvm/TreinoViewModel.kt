@@ -45,17 +45,4 @@ class TreinoViewModel(
             }
         }
     }
-
-    fun adicionarExercicioAoTreino(treinoId: Int, exercicio: Exercicio) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val treino = repository.buscarTreinoPorId(treinoId)
-            treino.let {
-                val exercicioIds = it.PegarExercicioIds()
-                exercicio.id?.let { novoId ->
-                    exercicioIds.add(novoId)
-                    repository.atualizarExercicioIdsDoTreino(treinoId, exercicioIds)
-                }
-            }
-        }
-    }
 }

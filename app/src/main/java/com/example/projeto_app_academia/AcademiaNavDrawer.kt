@@ -123,11 +123,11 @@ fun AcademiaNavigation(
                     val categoriaId = navRequest.arguments?.getString("categoriaId")
                     AdicionarExercicioScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt())
                 }
-                composable("inserir_exercicio_editar/{treinoId}/{categoriaId}/{exercicioId}") { navRequest ->
+                composable("inserir_exercicio_existente/{treinoId}/{categoriaId}/{exercicioNome}") { navRequest ->
                     val treinoId = navRequest.arguments?.getString("treinoId")
                     val categoriaId = navRequest.arguments?.getString("categoriaId")
-                    val exercicioId = navRequest.arguments?.getString("exercicioId")
-                    AdicionarExercicioScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt())
+                    val exercicioNome = navRequest.arguments?.getString("exercicioNome")
+                    AdicionarExercicioNovoScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt(), exercicioNome)
                 }
                 composable("inserir_exercicio_novo/{treinoId}/{categoriaId}") { navRequest ->
                     val treinoId = navRequest.arguments?.getString("treinoId")

@@ -83,7 +83,7 @@ private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewMode
     var nome by remember { mutableStateOf("") }
     var treino: Treino? by remember { mutableStateOf(null) }
     var dataDeCriacao by remember { mutableStateOf("") }
-    val exercicios = remember { mutableStateListOf<Exercicio>() }
+    val exercicios =  remember { mutableStateListOf<Exercicio>() }
     val exerciciosDb by viewlmodelExercicio.exercicios.collectAsState()
 
     LaunchedEffect(treinoId) {
@@ -92,7 +92,7 @@ private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewMode
             treino?.let {
                 nome = it.nome
                 dataDeCriacao = formatarDataCriacao(it.dataDeCriacao)
-
+                exercicios.clear()
                 for (exercicio in exerciciosDb) {
                     if (exercicio.treinoId == treinoId) {
                         exercicios.add(exercicio)

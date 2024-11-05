@@ -26,6 +26,4 @@ interface TreinoDao {
     @Delete
     suspend fun excluirTreino(treino: Treino)
 
-    @Query("UPDATE treino SET exercicioIds = :exercicioIds WHERE id = :treinoId")
-    suspend fun atualizarExercicioIdsDoTreino(treinoId: Int, exercicioIds: String)
 }

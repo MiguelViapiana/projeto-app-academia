@@ -48,13 +48,13 @@ fun AdicionarExercicioNovoScreen(
     viewModelExercicio: ExercicioViewModel,
     treinoId: Int? = null,
     categoriaId: Int? = null,
-    exercicioId: Int? = null
+    exercicioNome: String? = null
     )
 {
 
     Scaffold(
         topBar = { AcademiaTopBar(drawerState, navCtrlDrawer) },
-        content = { paddingValues ->  ConteudoPrincipalAdicionarNovo(paddingValues, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId,categoriaId, exercicioId, navCtrlDrawer) },
+        content = { paddingValues ->  ConteudoPrincipalAdicionarNovo(paddingValues, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId,categoriaId, exercicioNome, navCtrlDrawer) },
       //  bottomBar = {TreinoBottomBar(navController = navCtrlBottomNav, currentScreen)}
     )
 }
@@ -67,7 +67,7 @@ private fun ConteudoPrincipalAdicionarNovo(
     viewModelExercicio: ExercicioViewModel,
     treinoId: Int?,
     categoriaId: Int?,
-    exercicioId: Int? = null,
+    exercicioNome: String? = null,
     navCtrlDrawer: NavController
 ) {
 
@@ -80,13 +80,10 @@ private fun ConteudoPrincipalAdicionarNovo(
 
     var treino: Treino? by remember { mutableStateOf(null) }
 
-    LaunchedEffect(exercicioId) {
+    LaunchedEffect(exercicioNome) {
         coroutineScope.launch {
-            if(exercicioId != null){
-                exercicio = viewModelExercicio.buscarExercicioPorId(exercicioId)
-                exercicio?.let{
-                    nome = it.nome
-                }
+            if (exercicioNome != null) {
+                nome = exercicioNome
             }
         }
     }
@@ -126,7 +123,7 @@ private fun ConteudoPrincipalAdicionarNovo(
                 coroutineScope.launch {
                     val exercicioSalvar = categoriaId?.let {
                         Exercicio(
-                            id = exercicioId,
+                            id = null,
                             nome = nome,
                             series = series,
                             repeticoes = repeticoes,
@@ -136,7 +133,6 @@ private fun ConteudoPrincipalAdicionarNovo(
                     }
                     if (exercicioSalvar != null && treinoId != null) {
                         viewModelExercicio.gravar(exercicioSalvar)
-                        viewModel.adicionarExercicioAoTreino(treinoId,exercicioSalvar)
 
                     }
                     navCtrlDrawer.navigate("exibir_treino/${treinoId}")

@@ -108,8 +108,13 @@ private fun ConteudoPrincipalAdicionar(
             }
         }
         LazyColumn {
+            val nomesUnicos = exercicios
+                .filter { it.categoriaId == categoriaId } // Filtra pela categoria
+                .map { it.nome } // Mapeia para os nomes
+                .toSet()
 
-            items(exercicios) { exercicio ->
+            items(nomesUnicos.toList()) { nomeExercicio ->
+                val exercicio = exercicios.first { it.nome == nomeExercicio }
 
                 if(exercicio.categoriaId == categoriaId){
                     Card(
@@ -118,8 +123,9 @@ private fun ConteudoPrincipalAdicionar(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(10.dp)
-                            .clickable {}
-
+                            .clickable {
+                                navCtrlDrawer.navigate("inserir_exercicio_existente/${treinoId}/${categoriaId}/${exercicio.nome}")
+                            }
                     ) {
                         Row(
                             modifier = Modifier

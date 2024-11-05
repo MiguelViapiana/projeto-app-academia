@@ -13,5 +13,4 @@ interface TreinoRepository {
 
     suspend fun excluirTreino(treino: Treino)
 
-    suspend fun atualizarExercicioIdsDoTreino(treinoId: Int, exercicioIds: MutableList<Int>)
 }

@@ -11,11 +11,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerState
@@ -141,28 +144,57 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
             }
         }
 
-        Row (
+        Card(
             modifier = Modifier
-                .height(60.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+                .height(90.dp)
+                .width(180.dp)
+                .padding(16.dp),
+            shape = RoundedCornerShape(20.dp), // Bordas arredondadas para parecer um botão
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF275367)),
+            elevation = CardDefaults.elevatedCardElevation(8.dp)
         ) {
-            IconButton(
-                onClick = {
-                    navCtrlDrawer.navigate(AcademiaRotas.TELA_ADICIONAR_TREINO) {
-                        popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
-                    }
-                          },
-                modifier = Modifier.size(60.dp)
+            Row(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    imageVector = Icons.Default.AddCircle,
-                    contentDescription = "Adicionar Treino",
-                    tint = Color(0xFF275367),
-                    modifier = Modifier
-                        .size(60.dp)
-                        .scale(1.3f)
-                )
+                IconButton(
+                    onClick = {
+                        navCtrlDrawer.navigate(AcademiaRotas.TELA_ADICIONAR_TREINO) {
+                            popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
+                        }
+                    },
+                    modifier = Modifier.size(60.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Adicionar Treino",
+                        tint = Color(0xFFf5f5f5),
+                        modifier = Modifier
+                            .size(50.dp)
+                            .scale(1.3f)
+                            .padding(6.dp)
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        navCtrlDrawer.navigate(AcademiaRotas.TELA_LISTAR_TREINO) {
+                            popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
+                        }
+                    },
+                    modifier = Modifier.size(60.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.List,
+                        contentDescription = "Listar Treino",
+                        tint = Color(0xFFf5f5f5),
+                        modifier = Modifier
+                            .size(50.dp)
+                            .scale(1f)
+                            .padding(6.dp)
+                    )
+                }
             }
         }
     }

@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.projeto_app_academia.data.model.Categoria
 import com.example.projeto_app_academia.data.model.Exercicio
 import com.example.projeto_app_academia.data.model.Treino
 import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
@@ -83,6 +84,481 @@ private fun ConteudoPrincipalAdicionar(
     val categorias by viewModelCategoria.categorias.collectAsState()
     val exercicios by viewModelExercicio.exercicios.collectAsState()
     var treino: Treino? by remember { mutableStateOf(null) }
+
+    if(exercicios.isEmpty()) {
+        for(categoria in categorias){
+            if (categoria.nome == "Abdomên") {
+                val exercicioAbs01 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Prancha",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs01 != null) {
+                    viewModelExercicio.gravar(exercicioAbs01)
+                }
+                val exercicioAbs02 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Crunch Abdominal",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs02 != null) {
+                    viewModelExercicio.gravar(exercicioAbs02)
+                }
+                val exercicioAbs03 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Elevação de Pernas",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs03 != null) {
+                    viewModelExercicio.gravar(exercicioAbs03)
+                }
+                val exercicioAbs04 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Abdominal Supra",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs04 != null) {
+                    viewModelExercicio.gravar(exercicioAbs04)
+                }
+                val exercicioAbs05 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Abdominal com Corda",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs05 != null) {
+                    viewModelExercicio.gravar(exercicioAbs05)
+                }
+            }
+
+            if (categoria.nome == "Costas") {
+                val exercicioAbs01 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Pulldown",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs01 != null) {
+                    viewModelExercicio.gravar(exercicioAbs01)
+                }
+                val exercicioAbs02 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Remada Curvada",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs02 != null) {
+                    viewModelExercicio.gravar(exercicioAbs02)
+                }
+                val exercicioAbs03 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Remada Cerrote",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs03 != null) {
+                    viewModelExercicio.gravar(exercicioAbs03)
+                }
+                val exercicioAbs04 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Remada Cavalinho",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs04 != null) {
+                    viewModelExercicio.gravar(exercicioAbs04)
+                }
+                val exercicioAbs05 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Levantamento Terra",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs05 != null) {
+                    viewModelExercicio.gravar(exercicioAbs05)
+                }
+            }
+            if (categoria.nome == "Bíceps") {
+                val exercicioAbs01 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Rosca Direta",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs01 != null) {
+                    viewModelExercicio.gravar(exercicioAbs01)
+                }
+                val exercicioAbs02 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Rosca Martelo",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs02 != null) {
+                    viewModelExercicio.gravar(exercicioAbs02)
+                }
+                val exercicioAbs03 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Rosca Concentrada",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs03 != null) {
+                    viewModelExercicio.gravar(exercicioAbs03)
+                }
+                val exercicioAbs04 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Rosca Scott",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs04 != null) {
+                    viewModelExercicio.gravar(exercicioAbs04)
+                }
+                val exercicioAbs05 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Rosca Inclinada",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs05 != null) {
+                    viewModelExercicio.gravar(exercicioAbs05)
+                }
+            }
+            if (categoria.nome == "Peito") {
+                val exercicioAbs01 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Supino Reto",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs01 != null) {
+                    viewModelExercicio.gravar(exercicioAbs01)
+                }
+                val exercicioAbs02 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Supino Inclinado",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs02 != null) {
+                    viewModelExercicio.gravar(exercicioAbs02)
+                }
+                val exercicioAbs03 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Crucifixo com Halteres",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs03 != null) {
+                    viewModelExercicio.gravar(exercicioAbs03)
+                }
+                val exercicioAbs04 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Peck Deck",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs04 != null) {
+                    viewModelExercicio.gravar(exercicioAbs04)
+                }
+                val exercicioAbs05 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Flexão de Braço",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs05 != null) {
+                    viewModelExercicio.gravar(exercicioAbs05)
+                }
+            }
+            if (categoria.nome == "Perna") {
+                val exercicioAbs01 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Agachamento Livre",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs01 != null) {
+                    viewModelExercicio.gravar(exercicioAbs01)
+                }
+                val exercicioAbs02 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Leg Press",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs02 != null) {
+                    viewModelExercicio.gravar(exercicioAbs02)
+                }
+                val exercicioAbs03 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Extensão de Pernas",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs03 != null) {
+                    viewModelExercicio.gravar(exercicioAbs03)
+                }
+                val exercicioAbs04 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Mesa Flexora",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs04 != null) {
+                    viewModelExercicio.gravar(exercicioAbs04)
+                }
+                val exercicioAbs05 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Afundo com Halteres",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs05 != null) {
+                    viewModelExercicio.gravar(exercicioAbs05)
+                }
+            }
+            if (categoria.nome == "Ombro") {
+                val exercicioAbs01 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Desenvolvimento com Halteres",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs01 != null) {
+                    viewModelExercicio.gravar(exercicioAbs01)
+                }
+                val exercicioAbs02 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Elevação Lateral",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs02 != null) {
+                    viewModelExercicio.gravar(exercicioAbs02)
+                }
+                val exercicioAbs03 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Elevação Frontal",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs03 != null) {
+                    viewModelExercicio.gravar(exercicioAbs03)
+                }
+                val exercicioAbs04 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Crucifixo Invertido",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs04 != null) {
+                    viewModelExercicio.gravar(exercicioAbs04)
+                }
+                val exercicioAbs05 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Remada Alta",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs05 != null) {
+                    viewModelExercicio.gravar(exercicioAbs05)
+                }
+            }
+            if (categoria.nome == "Tríceps") {
+                val exercicioAbs01 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Supino Fechado",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs01 != null) {
+                    viewModelExercicio.gravar(exercicioAbs01)
+                }
+                val exercicioAbs02 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Tríceps Pulley",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs02 != null) {
+                    viewModelExercicio.gravar(exercicioAbs02)
+                }
+                val exercicioAbs03 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Tríceps Testa",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs03 != null) {
+                    viewModelExercicio.gravar(exercicioAbs03)
+                }
+                val exercicioAbs04 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Paralela",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs04 != null) {
+                    viewModelExercicio.gravar(exercicioAbs04)
+                }
+                val exercicioAbs05 = categoria.id?.let {
+                    Exercicio(
+                        id = null,
+                        nome = "Extensão de Tríceps",
+                        series = 0,
+                        repeticoes = 0,
+                        categoriaId = categoria.id,
+                        treinoId = null
+                    )
+                }
+                if (exercicioAbs05 != null) {
+                    viewModelExercicio.gravar(exercicioAbs05)
+                }
+            }
+        }
+    }
 
 
     Row(modifier = Modifier.padding(paddingValues)) {

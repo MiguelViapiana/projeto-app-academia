@@ -1,5 +1,6 @@
 package com.example.projeto_app_academia.ui.screen.treino
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -71,6 +72,7 @@ fun AdicionarExercicioCategoriaScreen(
     )
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 private fun ConteudoPrincipalAdicionar(
     paddingValues: PaddingValues,
@@ -86,6 +88,47 @@ private fun ConteudoPrincipalAdicionar(
     val exercicios by viewModelExercicio.exercicios.collectAsState()
     var treino: Treino? by remember { mutableStateOf(null) }
 
+
+    if(categorias.isEmpty()){
+        coroutineScope.launch {
+            val categoriaSalvar01 = Categoria(
+                id = null,
+                nome = "Abdomên"
+            )
+            viewModelCategoria.gravar(categoriaSalvar01)
+            val categoriaSalvar02 = Categoria(
+                id = null,
+                nome = "Costas"
+            )
+            viewModelCategoria.gravar(categoriaSalvar02)
+            val categoriaSalvar03 = Categoria(
+                id = null,
+                nome = "Bíceps"
+            )
+            viewModelCategoria.gravar(categoriaSalvar03)
+            val categoriaSalvar04 = Categoria(
+                id = null,
+                nome = "Peito"
+            )
+            viewModelCategoria.gravar(categoriaSalvar04)
+            val categoriaSalvar05 = Categoria(
+                id = null,
+                nome = "Perna"
+            )
+            viewModelCategoria.gravar(categoriaSalvar05)
+            val categoriaSalvar06 = Categoria(
+                id = null,
+                nome = "Ombro"
+            )
+            viewModelCategoria.gravar(categoriaSalvar06)
+            val categoriaSalvar07 = Categoria(
+                id = null,
+                nome = "Tríceps"
+            )
+
+            viewModelCategoria.gravar(categoriaSalvar07)
+        }
+    }
 
     Row(modifier = Modifier.padding(paddingValues)) {
         IconButton(

@@ -144,6 +144,7 @@ private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewMode
                 Text(
                     text = "Data de Criação: $dataDeCriacao",
                     fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
                 exerciciosDb.filter { it.treinoId == treinoId }.forEach { exercicio ->

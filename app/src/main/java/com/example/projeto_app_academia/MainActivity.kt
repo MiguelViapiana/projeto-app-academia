@@ -1,13 +1,15 @@
-package com.example.projeto_app_academia
+package com.migas.workoutwise
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.example.projeto_app_academia.AcademiaNavigation
 import com.example.projeto_app_academia.data.AcademiaDatabse.Companion.abrirBancoDeDados
 import com.example.projeto_app_academia.data.repository.categoria.LocalCategoriaRepository
 import com.example.projeto_app_academia.data.repository.exercicio.LocalExcercicioRepository
 import com.example.projeto_app_academia.data.repository.treino.LocalTreinoRepository
+import com.example.projeto_app_academia.data.repository.treino.RemoteTreinoRepository
 import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
 import com.example.projeto_app_academia.ui.mvvm.ExercicioViewModel
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
@@ -17,10 +19,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        val isLocal = false
+
         val db = abrirBancoDeDados(this)
 
         val localTreinoRepository = LocalTreinoRepository(db.TrenioDao())
-        val treinoViewModel = TreinoViewModel(localTreinoRepository)
+        val remoteTreinoRepository = RemoteTreinoRepository()
+
+        val treinoViewModel: TreinoViewModel
+        if(isLocal){
+            treinoViewModel = TreinoViewModel(localTreinoRepository)
+        }else{
+            treinoViewModel = TreinoViewModel(remoteTreinoRepository)
+        }
 
         val localCategoriaRepository = LocalCategoriaRepository(db.CategoriaDao())
         val categoriaViewModel = CategoriaViewModel(localCategoriaRepository)

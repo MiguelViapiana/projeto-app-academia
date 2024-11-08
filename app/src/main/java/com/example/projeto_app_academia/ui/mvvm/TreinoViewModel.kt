@@ -25,7 +25,7 @@ class TreinoViewModel(
 
     suspend fun buscarTreinoPorId(treinoId: Int): Treino {
         return withContext(Dispatchers.IO){
-            repository.buscarTreinoPorId(treinoId)
+            repository.buscarTreinoPorId(treinoId)!!
         }
     }
 

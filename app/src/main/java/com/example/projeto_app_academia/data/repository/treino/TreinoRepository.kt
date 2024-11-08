@@ -7,7 +7,7 @@ interface TreinoRepository {
 
     fun listarTreinos(): Flow<List<Treino>>
 
-    suspend fun buscarTreinoPorId(idx: Int): Treino
+    suspend fun buscarTreinoPorId(idx: Int): Treino?
 
     suspend fun gravarTreino(treino: Treino)
 

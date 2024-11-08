@@ -3,14 +3,15 @@ plugins {
     alias(libs.plugins.kotlin.android)
     kotlin("plugin.serialization")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.projeto_app_academia"
+    namespace = "com.migas.workoutwise"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.projeto_app_academia"
+        applicationId = "com.migas.workoutwise"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -72,6 +73,7 @@ dependencies {
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -88,4 +90,9 @@ dependencies {
     ksp("androidx.room:room-compiler:$room_version")
 
     implementation("com.google.code.gson:gson:2.8.8")
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    implementation ("com.google.android.gms:play-services-auth:20.0.0")
+    implementation ("com.google.firebase:firebase-auth:21.0.1")
 }

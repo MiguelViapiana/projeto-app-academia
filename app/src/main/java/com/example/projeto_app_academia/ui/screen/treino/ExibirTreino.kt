@@ -204,7 +204,7 @@ private fun ConteudoPrincipalExibirTreino(paddingValues: PaddingValues, viewMode
                 ) {
                     Button(
                         onClick = {
-                            navCtrlDrawer.navigate("inserir_exercicio_categoria/${treino?.id}")
+                            navCtrlDrawer.navigate("inserir_exercicio_categoria/${treinoId}")
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0x63275367)

@@ -83,7 +83,6 @@ private fun ConteudoPrincipalAdicionar(
     val coroutineScope = rememberCoroutineScope()
     val categorias by viewModelCategoria.categorias.collectAsState()
     val exercicios by viewModelExercicio.exercicios.collectAsState()
-    var treino: Treino? by remember { mutableStateOf(null) }
 
     if (exercicios.isEmpty() && categorias.isNotEmpty()) {
         for (categoria in categorias) {

@@ -21,7 +21,7 @@ class CategoriaViewModel (
         }
     }
 
-    suspend fun buscarCategoriaPorId(categoriaId: Int): Categoria {
+    suspend fun buscarCategoriaPorId(categoriaId: Int): Categoria? {
         return withContext(Dispatchers.IO){
             repository.buscarCategoriaPorId(categoriaId)
         }

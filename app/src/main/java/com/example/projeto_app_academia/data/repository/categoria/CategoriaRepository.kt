@@ -7,7 +7,7 @@ interface CategoriaRepository {
 
     fun listarCategoria(): Flow<List<Categoria>>
 
-    suspend fun buscarCategoriaPorId(idx: Int): Categoria
+    suspend fun buscarCategoriaPorId(idx: Int): Categoria?
 
     suspend fun gravarCategoria(categoria: Categoria)
 

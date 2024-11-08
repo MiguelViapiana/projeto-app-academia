@@ -6,13 +6,11 @@ interface ExercicioRepository {
 
     fun listarExercicio(): Flow<List<Exercicio>>
 
-    suspend fun buscarExercicioPorId(idx: Int): Exercicio
+    suspend fun buscarExercicioPorId(idx: Int): Exercicio?
 
     suspend fun gravarExercicio(exercicio: Exercicio)
 
     suspend fun excluirExercicio(exercicio: Exercicio)
-
-    suspend fun buscarExerciciosPorIds(ids: List<Int>): List<Exercicio>
 
     suspend fun atualizarExercicio(exercicio: Exercicio)
 

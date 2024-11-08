@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 class Categoria (
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    var id: Int? = null,
     val nome: String
 ){
     constructor(): this(null, "")

@@ -21,7 +21,7 @@ class ExercicioViewModel(
         }
     }
 
-    suspend fun buscarExercicioPorId(exercicoiId: Int): Exercicio {
+    private suspend fun buscarExercicioPorId(exercicoiId: Int): Exercicio? {
         return withContext(Dispatchers.IO){
             repository.buscarExercicioPorId(exercicoiId)
         }
@@ -42,10 +42,6 @@ class ExercicioViewModel(
                 _exercicios.value = listaDeExercicio
             }
         }
-    }
-
-    suspend fun buscarExerciciosPorIds(ids: List<Int>): List<Exercicio> {
-        return repository.buscarExerciciosPorIds(ids)
     }
 
     fun removerExercicioDoTreino(exercicioId: Int) {

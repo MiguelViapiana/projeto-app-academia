@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Exercicio(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    var id: Int? = null,
     val nome: String,
     val categoriaId: Int,
     var treinoId: Int?,

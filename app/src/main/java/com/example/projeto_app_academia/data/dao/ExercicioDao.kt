@@ -32,7 +32,4 @@ interface ExercicioDao {
 
     @Update
     suspend fun updateExercicio(exercicio: Exercicio)
-
-    @Query("SELECT * FROM exercicio WHERE syncStatus = 0")
-    fun getUnsyncedExercicios(): List<Exercicio>
 }

@@ -26,8 +26,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,6 +47,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
 import com.example.projeto_app_academia.ui.mvvm.ExercicioViewModel
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
+import com.example.projeto_app_academia.ui.mvvm.UsuarioViewModel
 import com.example.projeto_app_academia.ui.screen.home.HomeScreen
 import com.example.projeto_app_academia.ui.screen.login.LoginScreen
 import com.example.projeto_app_academia.ui.screen.signup.SignUpScreen
@@ -51,6 +57,7 @@ import com.example.projeto_app_academia.ui.screen.treino.AdicionarExercicioScree
 import com.example.projeto_app_academia.ui.screen.treino.AdicionarEditarTreinoScreen
 import com.example.projeto_app_academia.ui.screen.treino.ExibirTreino
 import com.example.projeto_app_academia.ui.screen.treino.ListarTreinoScreen
+import com.example.projeto_app_academia.ui.screen.util.UsuarioSession
 import kotlinx.coroutines.launch
 
 object AcademiaRotas {
@@ -74,12 +81,17 @@ object TelasTreinos{
 //    device = Devices.PIXEL
 //)
 
+
 @Composable
 fun AcademiaNavigation(
     viewModelTreino: TreinoViewModel,
     viewModelCategoria: CategoriaViewModel,
-    viewModelExercicio: ExercicioViewModel
+    viewModelExercicio: ExercicioViewModel,
+    viewModelUsuario: UsuarioViewModel,
+    usuarioIdInicial: Int = 0
 ){
+
+    val usuarioId by UsuarioSession.usuarioId.collectAsState()
 
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed)
@@ -89,62 +101,125 @@ fun AcademiaNavigation(
 
     ModalNavigationDrawer(
         drawerState = drawerState,
-        drawerContent = { DrawerContent(navCtrlDrawer, drawerState) },
+        drawerContent = { DrawerContent(navCtrlDrawer, drawerState, usuarioId) },
         content = {
             NavHost(
                 navController = navCtrlDrawer,
-                startDestination = AcademiaRotas.TELA_HOME
+                startDestination = AcademiaRotas.TELA_lOGIN
             ){
-                composable(AcademiaRotas.TELA_HOME) {
-                     HomeScreen(drawerState, navCtrlDrawer, viewModelTreino)
-                }
+
+
+                    composable(AcademiaRotas.TELA_HOME) {
+                         HomeScreen(drawerState, navCtrlDrawer, viewModelTreino)
+                    }
+
                 composable(AcademiaRotas.TELA_lOGIN) {
-                    LoginScreen(drawerState, navCtrlDrawer)
+                    LoginScreen(drawerState, navCtrlDrawer, viewModelUsuario)
                 }
                 composable(AcademiaRotas.TELA_SIGNUP) {
-                    SignUpScreen(drawerState, navCtrlDrawer)
+                    SignUpScreen(drawerState, navCtrlDrawer, viewModelUsuario)
                 }
-                composable(TelasTreinos.TELA_LISTAR_TREINO) {
-                    ListarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
+
+                    composable(TelasTreinos.TELA_LISTAR_TREINO) {
+                        ListarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
+                    }
+
+                    composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
+                        AdicionarEditarTreinoScreen(
+                            drawerState,
+                            navCtrlDrawer,
+                            viewModelTreino,
+                            usuarioId
+                        )
+                    }
+
+
+                    composable("editar_treino/{treinoId}") { navRequest ->
+                        val treinoId = navRequest.arguments?.getString("treinoId")
+                        AdicionarEditarTreinoScreen(
+                            drawerState,
+                            navCtrlDrawer,
+                            viewModelTreino,
+                            treinoId?.toInt(),
+                            usuarioId
+                        )
+                    }
+
+
+                    composable("exibir_treino/{treinoId}") { navRequest ->
+                        val treinoId = navRequest.arguments?.getString("treinoId")
+                        ExibirTreino(
+                            drawerState,
+                            navCtrlDrawer,
+                            viewModelTreino,
+                            viewlmodelExercicio = viewModelExercicio,
+                            treinoId?.toInt()
+                        )
+                    }
+
+                    composable("inserir_exercicio_categoria/{treinoId}") { navRequest ->
+                        val treinoId = navRequest.arguments?.getString("treinoId")
+                        AdicionarExercicioCategoriaScreen(
+                            drawerState,
+                            navCtrlDrawer,
+                            viewModelTreino,
+                            viewModelCategoria,
+                            viewModelExercicio,
+                            treinoId?.toInt()
+                        )
+                    }
+
+                    composable("inserir_exercicio/{treinoId}/{categoriaId}") { navRequest ->
+                        val treinoId = navRequest.arguments?.getString("treinoId")
+                        val categoriaId = navRequest.arguments?.getString("categoriaId")
+                        AdicionarExercicioScreen(
+                            drawerState,
+                            navCtrlDrawer,
+                            viewModelTreino,
+                            viewModelCategoria,
+                            viewModelExercicio,
+                            treinoId?.toInt(),
+                            categoriaId?.toInt()
+                        )
+                    }
+
+                    composable("inserir_exercicio_existente/{treinoId}/{categoriaId}/{exercicioNome}") { navRequest ->
+                        val treinoId = navRequest.arguments?.getString("treinoId")
+                        val categoriaId = navRequest.arguments?.getString("categoriaId")
+                        val exercicioNome = navRequest.arguments?.getString("exercicioNome")
+                        AdicionarExercicioNovoScreen(
+                            drawerState,
+                            navCtrlDrawer,
+                            viewModelTreino,
+                            viewModelCategoria,
+                            viewModelExercicio,
+                            treinoId?.toInt(),
+                            categoriaId?.toInt(),
+                            exercicioNome
+                        )
+                    }
+
+                    composable("inserir_exercicio_novo/{treinoId}/{categoriaId}") { navRequest ->
+                        val treinoId = navRequest.arguments?.getString("treinoId")
+                        val categoriaId = navRequest.arguments?.getString("categoriaId")
+                        AdicionarExercicioNovoScreen(
+                            drawerState,
+                            navCtrlDrawer,
+                            viewModelTreino,
+                            viewModelCategoria,
+                            viewModelExercicio,
+                            treinoId?.toInt(),
+                            categoriaId?.toInt()
+                        )
+                    }
                 }
-                composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
-                    AdicionarEditarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
-                }
-                composable("editar_treino/{treinoId}") { navRequest ->
-                    val treinoId = navRequest.arguments?.getString("treinoId")
-                    AdicionarEditarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino, treinoId?.toInt())
-                }
-                composable("exibir_treino/{treinoId}"){ navRequest ->
-                    val treinoId = navRequest.arguments?.getString("treinoId")
-                    ExibirTreino(drawerState,navCtrlDrawer, viewModelTreino, viewlmodelExercicio = viewModelExercicio, treinoId?.toInt())
-                }
-                composable("inserir_exercicio_categoria/{treinoId}") { navRequest ->
-                    val treinoId = navRequest.arguments?.getString("treinoId")
-                    AdicionarExercicioCategoriaScreen(drawerState,navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt())
-                }
-                composable("inserir_exercicio/{treinoId}/{categoriaId}") { navRequest ->
-                    val treinoId = navRequest.arguments?.getString("treinoId")
-                    val categoriaId = navRequest.arguments?.getString("categoriaId")
-                    AdicionarExercicioScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt())
-                }
-                composable("inserir_exercicio_existente/{treinoId}/{categoriaId}/{exercicioNome}") { navRequest ->
-                    val treinoId = navRequest.arguments?.getString("treinoId")
-                    val categoriaId = navRequest.arguments?.getString("categoriaId")
-                    val exercicioNome = navRequest.arguments?.getString("exercicioNome")
-                    AdicionarExercicioNovoScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt(), exercicioNome)
-                }
-                composable("inserir_exercicio_novo/{treinoId}/{categoriaId}") { navRequest ->
-                    val treinoId = navRequest.arguments?.getString("treinoId")
-                    val categoriaId = navRequest.arguments?.getString("categoriaId")
-                    AdicionarExercicioNovoScreen(drawerState, navCtrlDrawer, viewModelTreino, viewModelCategoria, viewModelExercicio, treinoId?.toInt(), categoriaId?.toInt())
-                }
-            }
+
         }
     )
 }
 
 @Composable
-private fun DrawerContent(navController: NavController, drawerState: DrawerState) {
+private fun DrawerContent(navController: NavController, drawerState: DrawerState, usuarioId: Int) {
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -187,116 +262,130 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
         )
         Spacer(modifier = Modifier.height(20.dp))
 
+        if(usuarioId != 0) {
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = getColorMenu(ehRotaHome)
+                ),
+                modifier = Modifier.padding(20.dp, 5.dp),
+                onClick = {
+                    navController.navigate(AcademiaRotas.TELA_HOME)
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                }) {
+                Icon(
+                    imageVector = Icons.Default.Home,
+                    contentDescription = "Tela Home",
+                    modifier = Modifier.size(40.dp),
+                    tint = getColorTexto(ehRotaHome)
+                )
+                Text(
+                    text = "Home", fontSize = 30.sp,
+                    color = getColorTexto(ehRotaHome)
 
-        TextButton(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaHome)),
-            modifier = Modifier.padding(20.dp, 5.dp),
-            onClick = {
-                navController.navigate(AcademiaRotas.TELA_HOME)
-                coroutineScope.launch {
-                    drawerState.close()
-                }
-            }) {
-            Icon(
-                imageVector = Icons.Default.Home,
-                contentDescription = "Tela Home",
-                modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaHome)
-            )
-            Text(
-                text = "Home", fontSize = 30.sp,
-                color = getColorTexto(ehRotaHome)
-
-            )
-        }
-        TextButton(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaLogin)),
-            modifier = Modifier.padding(20.dp, 5.dp),
-            onClick = {
-                navController.navigate(AcademiaRotas.TELA_lOGIN)
-                coroutineScope.launch {
-                    drawerState.close()
-                }
-            }) {
-            Icon(
-                imageVector = Icons.Default.AccountBox,
-                contentDescription = "Tela Login",
-                modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaLogin)
-            )
-            Text(
-                text = "Login", fontSize = 30.sp,
-                color = getColorTexto(ehRotaLogin)
-
-            )
-        }
-        TextButton(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaSignUp)),
-            modifier = Modifier.padding(20.dp, 5.dp),
-            onClick = {
-            navController.navigate(AcademiaRotas.TELA_SIGNUP)
-            coroutineScope.launch {
-                drawerState.close()
+                )
             }
-        }) {
-            Icon(
-                imageVector = Icons.Default.AccountCircle,
-                contentDescription = "Tela SignUp",
-                modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaSignUp)
-            )
-            Text(
-                text = "SignUp", fontSize = 30.sp,
-                color = getColorTexto(ehRotaSignUp)
-
-            )
         }
-        TextButton(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaAddTreino)),
-            modifier = Modifier.padding(20.dp, 5.dp),
-            onClick = {
-                navController.navigate(AcademiaRotas.TELA_ADICIONAR_TREINO)
-                coroutineScope.launch {
-                    drawerState.close()
-                }
-            }) {
-            Icon(
-                imageVector = Icons.Default.DateRange,
-                contentDescription = "Tela Treino",
-                modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaAddTreino)
-            )
-            Text(
-                text = "Adiconar Treino", fontSize = 25.sp,
-                color = getColorTexto(ehRotaAddTreino)
+        if(usuarioId == 0) {
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = getColorMenu(ehRotaLogin)
+                ),
+                modifier = Modifier.padding(20.dp, 5.dp),
+                onClick = {
+                    navController.navigate(AcademiaRotas.TELA_lOGIN)
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                }) {
+                Icon(
+                    imageVector = Icons.Default.AccountBox,
+                    contentDescription = "Tela Login",
+                    modifier = Modifier.size(40.dp),
+                    tint = getColorTexto(ehRotaLogin)
+                )
+                Text(
+                    text = "Login", fontSize = 30.sp,
+                    color = getColorTexto(ehRotaLogin)
 
-            )
+                )
+            }
         }
-        TextButton(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaListarTreino)),
-            modifier = Modifier.padding(20.dp, 5.dp),
-            onClick = {
-                navController.navigate(AcademiaRotas.TELA_LISTAR_TREINO)
-                coroutineScope.launch {
-                    drawerState.close()
-                }
-            }) {
-            Icon(
-                imageVector = Icons.Default.DateRange,
-                contentDescription = "Tela Treino",
-                modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaListarTreino)
-            )
-            Text(
-                text = "Lista de Treinos", fontSize = 25.sp,
-                color = getColorTexto(ehRotaListarTreino)
+        if(usuarioId == 0) {
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = getColorMenu(ehRotaSignUp)
+                ),
+                modifier = Modifier.padding(20.dp, 5.dp),
+                onClick = {
+                    navController.navigate(AcademiaRotas.TELA_SIGNUP)
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                }) {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "Tela SignUp",
+                    modifier = Modifier.size(40.dp),
+                    tint = getColorTexto(ehRotaSignUp)
+                )
+                Text(
+                    text = "SignUp", fontSize = 30.sp,
+                    color = getColorTexto(ehRotaSignUp)
 
-            )
+                )
+            }
+        }
+        if(usuarioId != 0) {
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = getColorMenu(ehRotaAddTreino)
+                ),
+                modifier = Modifier.padding(20.dp, 5.dp),
+                onClick = {
+                    navController.navigate(AcademiaRotas.TELA_ADICIONAR_TREINO)
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                }) {
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = "Tela Treino",
+                    modifier = Modifier.size(40.dp),
+                    tint = getColorTexto(ehRotaAddTreino)
+                )
+                Text(
+                    text = "Adiconar Treino", fontSize = 25.sp,
+                    color = getColorTexto(ehRotaAddTreino)
+
+                )
+            }
+        }
+        if(usuarioId != 0) {
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = getColorMenu(ehRotaListarTreino)
+                ),
+                modifier = Modifier.padding(20.dp, 5.dp),
+                onClick = {
+                    navController.navigate(AcademiaRotas.TELA_LISTAR_TREINO)
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                }) {
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = "Tela Treino",
+                    modifier = Modifier.size(40.dp),
+                    tint = getColorTexto(ehRotaListarTreino)
+                )
+                Text(
+                    text = "Lista de Treinos", fontSize = 25.sp,
+                    color = getColorTexto(ehRotaListarTreino)
+
+                )
+            }
         }
     }
 }

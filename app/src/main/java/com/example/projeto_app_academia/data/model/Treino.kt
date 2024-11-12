@@ -12,11 +12,12 @@ data class Treino(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
     val nome: String,
+    val usuarioId: Int?,
     val dataDeCriacao: Long = System.currentTimeMillis()
 
 
     ) {
-    constructor() : this(null, "")
+    constructor() : this(null, "", null)
 
     fun converterListaParaString(ids: List<Int>): String {
         return ids.joinToString(separator = ", ")

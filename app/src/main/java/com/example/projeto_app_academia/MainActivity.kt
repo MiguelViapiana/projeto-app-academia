@@ -12,16 +12,18 @@ import com.example.projeto_app_academia.data.repository.exercicio.LocalExcercici
 import com.example.projeto_app_academia.data.repository.exercicio.RemoteExercicioRepository
 import com.example.projeto_app_academia.data.repository.treino.LocalTreinoRepository
 import com.example.projeto_app_academia.data.repository.treino.RemoteTreinoRepository
+import com.example.projeto_app_academia.data.repository.usuario.LocalUsuarioRepository
 import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
 import com.example.projeto_app_academia.ui.mvvm.ExercicioViewModel
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
+import com.example.projeto_app_academia.ui.mvvm.UsuarioViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val isLocal = false
+        val isLocal = true
 
         val db = abrirBancoDeDados(this)
 
@@ -34,23 +36,31 @@ class MainActivity : ComponentActivity() {
         val localExcericioRepository = LocalExcercicioRepository(db.ExercicioDao())
         val remoteExercioRepository = RemoteExercicioRepository()
 
+        val localUsuarioRepository = LocalUsuarioRepository(db.UsuarioDao())
+
         val exercicioViewModel: ExercicioViewModel
         val treinoViewModel: TreinoViewModel
         val categoriaViewModel: CategoriaViewModel
+        val usuarioViewModel : UsuarioViewModel
 
         if(isLocal){
             treinoViewModel = TreinoViewModel(localTreinoRepository)
             exercicioViewModel = ExercicioViewModel(localExcericioRepository)
             categoriaViewModel = CategoriaViewModel(localCategoriaRepository)
+            usuarioViewModel = UsuarioViewModel(localUsuarioRepository)
         }else{
             treinoViewModel = TreinoViewModel(remoteTreinoRepository)
             exercicioViewModel = ExercicioViewModel(remoteExercioRepository)
             categoriaViewModel = CategoriaViewModel(remoteCategoriaRepository)
+            //Provisorio
+            usuarioViewModel = UsuarioViewModel(localUsuarioRepository)
         }
 
 
+
+
         setContent {
-            AcademiaNavigation(treinoViewModel, categoriaViewModel, exercicioViewModel)
+            AcademiaNavigation(treinoViewModel, categoriaViewModel, exercicioViewModel, usuarioViewModel, 0)
         }
     }
 }

@@ -39,13 +39,18 @@ fun AdicionarEditarTreinoScreen(
     drawerState: DrawerState,
     navCtrlDrawer: NavController,
     viewModel: TreinoViewModel,
-    treinoId: Int? = null
+    treinoId: Int? = null,
+    usuarioId: Int? = null
     )
 {
 
     Scaffold(
         topBar = { AcademiaTopBar(drawerState, navCtrlDrawer) },
-        content = { paddingValues ->  ConteudoPrincipalAdicionar(paddingValues, viewModel, treinoId, navCtrlDrawer) },
+        content = { paddingValues ->
+
+                ConteudoPrincipalAdicionar(paddingValues, viewModel, treinoId, navCtrlDrawer, usuarioId)
+
+        },
       //  bottomBar = {TreinoBottomBar(navController = navCtrlBottomNav, currentScreen)}
     )
 }
@@ -55,7 +60,8 @@ private fun ConteudoPrincipalAdicionar(
     paddingValues: PaddingValues,
     viewModel: TreinoViewModel,
     treinoId: Int?,
-    navCtrlDrawer: NavController
+    navCtrlDrawer: NavController,
+    usuarioId: Int?
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -96,6 +102,7 @@ private fun ConteudoPrincipalAdicionar(
                     val treinoSalvar = Treino(
                         id = treinoId,
                         nome = nome,
+                        usuarioId = usuarioId
                     )
                     viewModel.gravar(treinoSalvar)
                     navCtrlDrawer.navigate(AcademiaRotas.TELA_LISTAR_TREINO)

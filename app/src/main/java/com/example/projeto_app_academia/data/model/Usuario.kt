@@ -4,16 +4,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Exercicio(
+data class Usuario (
 
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
-    val nome: String,
-    val categoriaId: Int,
-    var treinoId: Int?,
-    val series: Int,
-    val repeticoes: Int,
-
+    val nomeCompleto: String,
+    val email: String,
+    val cpf: String,
+    val senha: String
 ){
-    constructor() : this(null, "", 0, 0, 0, 0)
+    constructor() : this(null, "", "", "", "")
 }

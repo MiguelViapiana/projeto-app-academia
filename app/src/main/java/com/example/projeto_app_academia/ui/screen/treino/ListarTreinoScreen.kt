@@ -61,17 +61,19 @@ import java.util.Locale
 fun ListarTreinoScreen(
     drawerState: DrawerState,
     navCtrlDrawer: NavHostController,
-    viewModel: TreinoViewModel)
+    viewModel: TreinoViewModel,
+    usuarioId: Int
+)
 {
     Scaffold(
         topBar = { AcademiaTopBar(drawerState, navCtrlDrawer) },
-        content = {paddingValues -> ConteudoPrincipalListar(paddingValues, viewModel, navCtrlDrawer)},
+        content = {paddingValues -> ConteudoPrincipalListar(paddingValues, viewModel, navCtrlDrawer, usuarioId)},
        // bottomBar = {TreinoBottomBar(navCtrlBottomNav, currentScreen)}
     )
 }
 
 @Composable
-private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoViewModel, navCtrlDrawer: NavHostController) {
+private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoViewModel, navCtrlDrawer: NavHostController, usuarioId: Int) {
 
     var coroutineScope = rememberCoroutineScope()
     val treinos by viewModel.treinos.collectAsState()
@@ -84,90 +86,92 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
         verticalArrangement = Arrangement.Top
 
     ) {
-        items(treinos){ treino ->
+        items(treinos) { treino ->
+            if (treino.usuarioId == usuarioId){
 
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0x63275367)),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-            ) {
-                Row(
+                Card(
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color(0x63275367)),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically // Alinha o conteúdo verticalmente ao centro
+                        .padding(10.dp)
                 ) {
-                    Column(
-                        modifier = Modifier.weight(3f),
-                        horizontalAlignment = Alignment.Start
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically // Alinha o conteúdo verticalmente ao centro
                     ) {
-                        Text(
-                            text = treino.nome,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White,
-                            style = TextStyle(
-                                shadow = Shadow(
-                                    color = Color(0x8B000000),
-                                    offset = Offset(10f, 4f),
-                                    blurRadius = 5f
+                        Column(
+                            modifier = Modifier.weight(3f),
+                            horizontalAlignment = Alignment.Start
+                        ) {
+                            Text(
+                                text = treino.nome,
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                style = TextStyle(
+                                    shadow = Shadow(
+                                        color = Color(0x8B000000),
+                                        offset = Offset(10f, 4f),
+                                        blurRadius = 5f
+                                    )
                                 )
                             )
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = "Data de criação: " + formatarDataCriacao(treino.dataDeCriacao),
-                            fontSize = 16.sp,
-                            color = Color.White
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Row{
-                            IconButton(
-                                onClick = {
-                                    showDialog = treino
-                                },
-                                modifier = Modifier.size(24.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = "Excluir treino",
-                                    tint = Color(0xFF275367)
-                                )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = "Data de criação: " + formatarDataCriacao(treino.dataDeCriacao),
+                                fontSize = 16.sp,
+                                color = Color.White
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Row {
+                                IconButton(
+                                    onClick = {
+                                        showDialog = treino
+                                    },
+                                    modifier = Modifier.size(24.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Delete,
+                                        contentDescription = "Excluir treino",
+                                        tint = Color(0xFF275367)
+                                    )
+                                }
+                                IconButton(
+                                    onClick = {
+                                        navCtrlDrawer.navigate("editar_treino/${treino.id}")
+                                    },
+                                    modifier = Modifier.size(24.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Create,
+                                        contentDescription = "Editar treino",
+                                        tint = Color(0xFF275367)
+                                    )
+                                }
                             }
-                            IconButton(
-                                onClick = {
-                                    navCtrlDrawer.navigate("editar_treino/${treino.id}")
-                                },
-                                modifier = Modifier.size(24.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Create,
-                                    contentDescription = "Editar treino",
-                                    tint = Color(0xFF275367)
-                                )
-                            }
+
                         }
 
-                    }
+                        // Espaço flexível entre o texto e o ícone
+                        Spacer(modifier = Modifier.weight(1f))
 
-                    // Espaço flexível entre o texto e o ícone
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    IconButton(
-                        onClick = {
-                            navCtrlDrawer.navigate("exibir_treino/${treino.id}")
-                        },
-                        modifier = Modifier
-                            .size(40.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowForward,
-                            contentDescription = "Opções",
-                            tint = Color.White,
-                            modifier = Modifier.size(30.dp)
-                        )
+                        IconButton(
+                            onClick = {
+                                navCtrlDrawer.navigate("exibir_treino/${treino.id}")
+                            },
+                            modifier = Modifier
+                                .size(40.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward,
+                                contentDescription = "Opções",
+                                tint = Color.White,
+                                modifier = Modifier.size(30.dp)
+                            )
+                        }
                     }
                 }
             }

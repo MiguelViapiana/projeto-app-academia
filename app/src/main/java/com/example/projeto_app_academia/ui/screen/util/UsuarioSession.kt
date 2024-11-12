@@ -10,4 +10,9 @@ object UsuarioSession {
     fun logar(id: Int) {
         _usuarioId.value = id
     }
+
+    fun logout(){
+        _usuarioId.value = 0;
+    }
+
 }

@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerState
@@ -110,7 +111,7 @@ fun AcademiaNavigation(
 
 
                     composable(AcademiaRotas.TELA_HOME) {
-                         HomeScreen(drawerState, navCtrlDrawer, viewModelTreino)
+                         HomeScreen(drawerState, navCtrlDrawer, viewModelTreino, usuarioId)
                     }
 
                 composable(AcademiaRotas.TELA_lOGIN) {
@@ -121,15 +122,16 @@ fun AcademiaNavigation(
                 }
 
                     composable(TelasTreinos.TELA_LISTAR_TREINO) {
-                        ListarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
+                        ListarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino, usuarioId)
                     }
 
-                    composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
+                    composable("adicionar_treino/{usuarioId}") { navRequest ->
+                        val usuarioId = navRequest.arguments?.getString("usuarioId")
                         AdicionarEditarTreinoScreen(
                             drawerState,
                             navCtrlDrawer,
                             viewModelTreino,
-                            usuarioId
+                            usuarioId?.toInt()
                         )
                     }
 
@@ -382,6 +384,32 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
                 )
                 Text(
                     text = "Lista de Treinos", fontSize = 25.sp,
+                    color = getColorTexto(ehRotaListarTreino)
+
+                )
+            }
+        }
+        if(usuarioId != 0) {
+            TextButton(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = getColorMenu(ehRotaListarTreino)
+                ),
+                modifier = Modifier.padding(20.dp, 5.dp),
+                onClick = {
+                    UsuarioSession.logout()
+                    navController.navigate(AcademiaRotas.TELA_lOGIN)
+                    coroutineScope.launch {
+                        drawerState.close()
+                    }
+                }) {
+                Icon(
+                    imageVector = Icons.Default.ExitToApp,
+                    contentDescription = "Logout",
+                    modifier = Modifier.size(40.dp),
+                    tint = getColorTexto(ehRotaListarTreino)
+                )
+                Text(
+                    text = "Logout", fontSize = 25.sp,
                     color = getColorTexto(ehRotaListarTreino)
 
                 )

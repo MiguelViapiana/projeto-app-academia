@@ -53,15 +53,19 @@ import com.example.projeto_app_academia.ui.screen.util.formatarDataCriacao
 @OptIn(ExperimentalMaterial3Api::class)
 
 @Composable
-fun HomeScreen(drawerState: DrawerState, navCtrlDrawer: NavHostController, viewModel: TreinoViewModel) {
+fun HomeScreen(
+    drawerState: DrawerState,
+    navCtrlDrawer: NavHostController,
+    viewModel: TreinoViewModel,
+    usuarioId: Int) {
     Scaffold(
         topBar = { AcademiaTopBar(drawerState, navCtrlDrawer) },
-        content = {padding -> ConteudoPrincipal(padding,navCtrlDrawer, viewModel) }
+        content = {padding -> ConteudoPrincipal(padding,navCtrlDrawer, viewModel, usuarioId) }
     )
 }
 
 @Composable
-private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostController, viewModel: TreinoViewModel) {
+private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostController, viewModel: TreinoViewModel, usuarioId: Int) {
 
     var coroutineScope = rememberCoroutineScope()
     val treinos by viewModel.treinos.collectAsState()
@@ -82,63 +86,65 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
             color = Color(0xFF275367),
             textAlign = TextAlign.Center
         )
-        for(treino in treinos.takeLast(3)){
-        //items(treinos){ treino ->
+        for(treino in treinos.takeLast(3)) {
+            if(treino.usuarioId == usuarioId){
+            //items(treinos){ treino ->
 
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0x63275367)),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp)
-            ) {
-                Row(
+                Card(
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color(0x63275367)),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically // Alinha o conteúdo verticalmente ao centro
+                        .padding(5.dp)
                 ) {
-                    Column(
-                        modifier = Modifier.weight(2f),
-                        horizontalAlignment = Alignment.Start
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically // Alinha o conteúdo verticalmente ao centro
                     ) {
-                        Text(
-                            text = treino.nome,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White,
-                            style = TextStyle(
-                                shadow = Shadow(
-                                    color = Color(0x8B000000),
-                                    offset = Offset(10f, 4f),
-                                    blurRadius = 5f
+                        Column(
+                            modifier = Modifier.weight(2f),
+                            horizontalAlignment = Alignment.Start
+                        ) {
+                            Text(
+                                text = treino.nome,
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                style = TextStyle(
+                                    shadow = Shadow(
+                                        color = Color(0x8B000000),
+                                        offset = Offset(10f, 4f),
+                                        blurRadius = 5f
+                                    )
                                 )
                             )
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = formatarDataCriacao(treino.dataDeCriacao),
-                            fontSize = 16.sp,
-                            color = Color.White
-                        )
-                    }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = formatarDataCriacao(treino.dataDeCriacao),
+                                fontSize = 16.sp,
+                                color = Color.White
+                            )
+                        }
 
-                    // Espaço flexível entre o texto e o ícone
-                    Spacer(modifier = Modifier.weight(1f))
+                        // Espaço flexível entre o texto e o ícone
+                        Spacer(modifier = Modifier.weight(1f))
 
-                    IconButton(
-                        onClick = {
-                            navCtrlDrawer.navigate("exibir_treino/${treino.id}")
-                        },
-                        modifier = Modifier
-                            .size(40.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowForward,
-                            contentDescription = "Opções",
-                            tint = Color.White,
-                            modifier = Modifier.size(30.dp)
-                        )
+                        IconButton(
+                            onClick = {
+                                navCtrlDrawer.navigate("exibir_treino/${treino.id}")
+                            },
+                            modifier = Modifier
+                                .size(40.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowForward,
+                                contentDescription = "Opções",
+                                tint = Color.White,
+                                modifier = Modifier.size(30.dp)
+                            )
+                        }
                     }
                 }
             }
@@ -161,7 +167,7 @@ private fun ConteudoPrincipal(padding: PaddingValues, navCtrlDrawer: NavHostCont
             ) {
                 IconButton(
                     onClick = {
-                        navCtrlDrawer.navigate(AcademiaRotas.TELA_ADICIONAR_TREINO) {
+                        navCtrlDrawer.navigate("adicionar_treino/${usuarioId}") {
                             popUpTo(AcademiaRotas.TELA_HOME) { inclusive = true }
                         }
                     },

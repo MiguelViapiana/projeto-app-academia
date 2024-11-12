@@ -15,6 +15,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,11 +32,10 @@ import com.example.projeto_app_academia.data.model.Treino
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
 import com.example.projeto_app_academia.ui.screen.util.AcademiaTopBar
 import kotlinx.coroutines.launch
-import java.util.Date
 
 
 @Composable
-fun AdicionarTreinoScreen(
+fun AdicionarEditarTreinoScreen(
     drawerState: DrawerState,
     navCtrlDrawer: NavController,
     viewModel: TreinoViewModel,
@@ -59,10 +59,19 @@ private fun ConteudoPrincipalAdicionar(
 ) {
 
     val coroutineScope = rememberCoroutineScope()
-
     var nome by remember { mutableStateOf("") }
-
     var treino: Treino? by remember { mutableStateOf(null) }
+
+    LaunchedEffect(treinoId) {
+        coroutineScope.launch {
+            if(treinoId != null){
+                treino = viewModel.buscarTreinoPorId(treinoId);
+                treino?.let {
+                    nome = it.nome
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier

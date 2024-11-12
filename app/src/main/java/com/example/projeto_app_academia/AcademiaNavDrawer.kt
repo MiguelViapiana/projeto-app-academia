@@ -48,7 +48,7 @@ import com.example.projeto_app_academia.ui.screen.signup.SignUpScreen
 import com.example.projeto_app_academia.ui.screen.treino.AdicionarExercicioCategoriaScreen
 import com.example.projeto_app_academia.ui.screen.treino.AdicionarExercicioNovoScreen
 import com.example.projeto_app_academia.ui.screen.treino.AdicionarExercicioScreen
-import com.example.projeto_app_academia.ui.screen.treino.AdicionarTreinoScreen
+import com.example.projeto_app_academia.ui.screen.treino.AdicionarEditarTreinoScreen
 import com.example.projeto_app_academia.ui.screen.treino.ExibirTreino
 import com.example.projeto_app_academia.ui.screen.treino.ListarTreinoScreen
 import kotlinx.coroutines.launch
@@ -108,7 +108,11 @@ fun AcademiaNavigation(
                     ListarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
                 }
                 composable(TelasTreinos.TELA_ADICIONAR_TREINO) {
-                    AdicionarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
+                    AdicionarEditarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino)
+                }
+                composable("editar_treino/{treinoId}") { navRequest ->
+                    val treinoId = navRequest.arguments?.getString("treinoId")
+                    AdicionarEditarTreinoScreen(drawerState, navCtrlDrawer, viewModelTreino, treinoId?.toInt())
                 }
                 composable("exibir_treino/{treinoId}"){ navRequest ->
                     val treinoId = navRequest.arguments?.getString("treinoId")

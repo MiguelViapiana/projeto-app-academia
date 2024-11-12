@@ -12,7 +12,8 @@ data class Exercicio(
     val categoriaId: Int,
     var treinoId: Int?,
     val series: Int,
-    val repeticoes: Int
+    val repeticoes: Int,
+    var syncStatus: Boolean = false
 ){
     constructor() : this(null, "", 0, 0, 0, 0)
 }

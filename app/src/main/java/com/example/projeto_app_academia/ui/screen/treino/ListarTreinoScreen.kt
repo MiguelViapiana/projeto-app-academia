@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -122,18 +123,33 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
                             color = Color.White
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        IconButton(
-                            onClick = {
-                                showDialog = treino
-                            },
-                            modifier = Modifier.size(24.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = "Excluir treino",
-                                tint = Color(0xFF275367)
-                            )
+                        Row{
+                            IconButton(
+                                onClick = {
+                                    showDialog = treino
+                                },
+                                modifier = Modifier.size(24.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Excluir treino",
+                                    tint = Color(0xFF275367)
+                                )
+                            }
+                            IconButton(
+                                onClick = {
+                                    navCtrlDrawer.navigate("editar_treino/${treino.id}")
+                                },
+                                modifier = Modifier.size(24.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Create,
+                                    contentDescription = "Editar treino",
+                                    tint = Color(0xFF275367)
+                                )
+                            }
                         }
+
                     }
 
                     // Espaço flexível entre o texto e o ícone

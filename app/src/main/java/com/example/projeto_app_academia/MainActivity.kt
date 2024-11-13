@@ -56,9 +56,6 @@ class MainActivity : ComponentActivity() {
             usuarioViewModel = UsuarioViewModel(localUsuarioRepository)
         }
 
-
-
-
         setContent {
             AcademiaNavigation(treinoViewModel, categoriaViewModel, exercicioViewModel, usuarioViewModel, 0)
         }

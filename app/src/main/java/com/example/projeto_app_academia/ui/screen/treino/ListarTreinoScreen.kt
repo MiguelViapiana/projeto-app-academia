@@ -141,7 +141,7 @@ private fun ConteudoPrincipalListar(padding: PaddingValues, viewModel: TreinoVie
                                 }
                                 IconButton(
                                     onClick = {
-                                        navCtrlDrawer.navigate("editar_treino/${treino.id}")
+                                        navCtrlDrawer.navigate("editar_treino/${treino.id}/${usuarioId}")
                                     },
                                     modifier = Modifier.size(24.dp)
                                 ) {

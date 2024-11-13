@@ -131,19 +131,21 @@ fun AcademiaNavigation(
                             drawerState,
                             navCtrlDrawer,
                             viewModelTreino,
+                            null,
                             usuarioIdNav?.toInt()
                         )
                     }
 
 
-                    composable("editar_treino/{treinoId}") { navRequest ->
+                    composable("editar_treino/{treinoId}/{usuarioId}") { navRequest ->
                         val treinoId = navRequest.arguments?.getString("treinoId")
+                        val usuarioIdNav = navRequest.arguments?.getString("usuarioId")
                         AdicionarEditarTreinoScreen(
                             drawerState,
                             navCtrlDrawer,
                             viewModelTreino,
                             treinoId?.toInt(),
-                            usuarioId
+                            usuarioIdNav?.toInt()
                         )
                     }
 

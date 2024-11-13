@@ -126,12 +126,12 @@ fun AcademiaNavigation(
                     }
 
                     composable("adicionar_treino/{usuarioId}") { navRequest ->
-                        val usuarioId = navRequest.arguments?.getString("usuarioId")
+                        val usuarioIdNav = navRequest.arguments?.getString("usuarioId")
                         AdicionarEditarTreinoScreen(
                             drawerState,
                             navCtrlDrawer,
                             viewModelTreino,
-                            usuarioId?.toInt()
+                            usuarioIdNav?.toInt()
                         )
                     }
 
@@ -346,7 +346,7 @@ private fun DrawerContent(navController: NavController, drawerState: DrawerState
                 ),
                 modifier = Modifier.padding(20.dp, 5.dp),
                 onClick = {
-                    navController.navigate(AcademiaRotas.TELA_ADICIONAR_TREINO)
+                    navController.navigate("adicionar_treino/${usuarioId}")
                     coroutineScope.launch {
                         drawerState.close()
                     }

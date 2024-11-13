@@ -24,13 +24,13 @@ class UsuarioViewModel(
 
     suspend fun buscarUsuarioPorId(usuarioId: Int): Usuario {
         return withContext(Dispatchers.IO){
-            repository.buscarUsuarioPorId(usuarioId)!!
+            repository.buscarUsuarioPorId(usuarioId)
         }
     }
 
     suspend fun buscarUsuarioPorEmailSenha(email: String, senha: String): Usuario{
         return withContext(Dispatchers.IO){
-            repository.buscarUsuarioPorEmailSenha(email, senha)!!
+            repository.buscarUsuarioPorEmailSenha(email, senha)
         }
     }
 

@@ -13,6 +13,7 @@ import com.example.projeto_app_academia.data.repository.exercicio.RemoteExercici
 import com.example.projeto_app_academia.data.repository.treino.LocalTreinoRepository
 import com.example.projeto_app_academia.data.repository.treino.RemoteTreinoRepository
 import com.example.projeto_app_academia.data.repository.usuario.LocalUsuarioRepository
+import com.example.projeto_app_academia.data.repository.usuario.RemoteUsuarioRepository
 import com.example.projeto_app_academia.ui.mvvm.CategoriaViewModel
 import com.example.projeto_app_academia.ui.mvvm.ExercicioViewModel
 import com.example.projeto_app_academia.ui.mvvm.TreinoViewModel
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val isLocal = true
+        val isLocal = false
 
         val db = abrirBancoDeDados(this)
 
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
         val remoteExercioRepository = RemoteExercicioRepository()
 
         val localUsuarioRepository = LocalUsuarioRepository(db.UsuarioDao())
+        val remoteUsuarioRepository = RemoteUsuarioRepository()
 
         val exercicioViewModel: ExercicioViewModel
         val treinoViewModel: TreinoViewModel
@@ -52,8 +54,7 @@ class MainActivity : ComponentActivity() {
             treinoViewModel = TreinoViewModel(remoteTreinoRepository)
             exercicioViewModel = ExercicioViewModel(remoteExercioRepository)
             categoriaViewModel = CategoriaViewModel(remoteCategoriaRepository)
-            //Provisorio
-            usuarioViewModel = UsuarioViewModel(localUsuarioRepository)
+            usuarioViewModel = UsuarioViewModel(remoteUsuarioRepository)
         }
 
         setContent {

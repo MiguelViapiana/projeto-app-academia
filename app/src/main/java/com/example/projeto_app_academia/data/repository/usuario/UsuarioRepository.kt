@@ -8,9 +8,9 @@ interface UsuarioRepository {
 
     fun listarUsuarios(): Flow<List<Usuario>>
 
-    suspend fun buscarUsuarioPorId(idx: Int): Usuario
+    suspend fun buscarUsuarioPorId(idx: Int): Usuario?
 
-    suspend fun buscarUsuarioPorEmailSenha(email: String, senha: String): Usuario
+    suspend fun buscarUsuarioPorEmailSenha(email: String, senha: String): Usuario?
 
     suspend fun gravarUsuario(usuario: Usuario)
 
